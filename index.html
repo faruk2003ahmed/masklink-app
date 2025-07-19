@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root{--bg:#000814;--text-color:#ffffff;--accent-color:#00ff9f;--secondary-accent:#3a8bfd;--error-color:#ff3b3b;--dark-blue-black:#000814;}body.light-theme{--bg:#f0f2f5;--text-color:#1c1e21;--accent-color:#008a5e;--secondary-accent:#1877f2;--dark-blue-black:#ffffff;}body{background-color:var(--bg);color:var(--text-color);font-family:'Share Tech Mono',monospace;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;transition:background-color .3s,color .3s;overflow-x:hidden;}*{box-sizing:border-box;}
-        #bg-video{position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;background-size:cover;opacity:.3; filter: blur(2px) brightness(0.7);}
+        #bg-video{position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;background-size:cover;opacity:.3;}
         .container{width:100%;max-width:400px;padding:20px;display:flex;flex-direction:column;align-items:center;z-index:2;}.app-title{font-size:40px;color:var(--accent-color);text-shadow:0 0 10px var(--accent-color),0 0 20px var(--accent-color);text-align:center;margin-bottom:30px;}.app-title a{color:inherit;text-decoration:none;}.form-container{display:flex;flex-direction:column;width:100%;align-items:center;}input[type=email],input[type=password],input[type=text]{border-radius:25px;border:2px solid var(--accent-color);background:transparent;color:var(--text-color);padding:12px 20px;margin-bottom:15px;width:100%;max-width:350px;font-family:'Share Tech Mono',monospace;}input::placeholder{color:var(--text-color);opacity:.7;}button{border-radius:50px;background:var(--accent-color);color:var(--dark-blue-black);font-weight:700;border:none;padding:12px 0;cursor:pointer;width:100%;max-width:350px;transition:box-shadow .3s ease,background-color .3s;font-family:'Share Tech Mono',monospace;font-size:16px;margin-top:10px;}button.secondary{background:var(--secondary-accent);color:var(--white);}button.danger{background-color:#c92a2a;color:#fff;}button:hover{box-shadow:0 0 15px var(--accent-color);}.form-switch{font-size:13px;color:var(--text-color);text-align:center;margin-top:20px;}.form-switch span{color:var(--accent-color);text-decoration:underline;cursor:pointer;}.error-message{color:var(--error-color);text-align:center;margin-bottom:15px;font-size:14px;max-width:350px;}.hidden{display:none!important;}.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:1000;}.modal-content{background:var(--bg);padding:30px;border-radius:10px;border:2px solid var(--accent-color);width:90%;max-width:400px;box-shadow:0 0 20px var(--secondary-accent);text-align:center;}.modal-content h2{color:var(--accent-color);margin-top:0;margin-bottom:20px;}.profile-id-display{background:rgba(255,255,255,.1);padding:10px;border-radius:10px;margin-top:15px;font-size:14px;color:var(--accent-color);border:1px dashed var(--accent-color);word-break:break-all;}#app-container{width:100%;height:100vh;z-index:1;}.main-app{width:100%;height:100%;display:flex;flex-direction:column;}.top-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;background:#000c1f;border-bottom:1px solid var(--accent-color);position:fixed;top:0;width:100%;z-index:100}body.light-theme .top-bar{background:#e9ebee;border-bottom:1px solid #ccc;}.top-bar .app-title-small{font-size:24px;color:var(--accent-color);text-shadow:0 0 5px var(--accent-color);}.top-bar .app-title-small a{color:inherit;text-decoration:none;}.main-content{flex-grow:1;padding:20px;overflow-y:auto;margin-top:60px;margin-bottom:60px;width:100%;}.page{display:none;}.page.active{display:block;}.bottom-bar{display:flex;justify-content:space-around;padding:10px 0;background:#000c1f;border-top:1px solid var(--accent-color);position:fixed;bottom:0;left:0;width:100%;z-index:100}.nav-button{position:relative;background:none;border:none;color:var(--text-color);font-family:'Share Tech Mono',monospace;font-size:16px;cursor:pointer;padding:5px 10px;}.nav-button:hover{color:var(--accent-color);}.notification-badge{position:absolute;top:-5px;right:0;background-color:var(--error-color);color:#fff;border-radius:50%;width:20px;height:20px;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:700;}
         .list-item{background-color:rgba(255,255,255,0.05);border:1px solid var(--accent-color);border-radius:10px;padding:15px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;text-align:left;}
         .list-item-main-info{flex-grow:1;display:flex;align-items:center;cursor:pointer;}
@@ -35,74 +35,29 @@
     <div id="auth-container" class="container hidden"><h1 class="app-title"><a href="https://t.me/MuskLinkBD" target="_blank">MaskLink</a></h1><div id="login-form" class="form-container"><p id="login-error" class="error-message hidden"></p><input type="email" id="login-email" placeholder="Email"><input type="password" id="login-password" placeholder="Password"><button id="login-button">Login</button><p class="form-switch">Don't have an account? <span id="show-signup">Sign up</span></p></div><div id="signup-form" class="form-container hidden"><p id="signup-error" class="error-message hidden"></p><input type="email" id="signup-email" placeholder="Email"><input type="password" id="signup-password" placeholder="Password"><button id="signup-button">Sign Up</button><p class="form-switch">Already have an account? <span id="show-login">Log in</span></p></div></div>
     <div id="app-container" class="hidden">
         <!-- Modals -->
-        <div id="profile-setup-modal" class="modal-overlay hidden">
-            <div class="modal-content">
-                <h2>Setup Your Profile</h2>
-                <p id="profile-error" class="error-message hidden"></p>
-                <input type="text" id="profile-name" placeholder="Enter name">
-                <input type="text" id="profile-emoji" placeholder="Enter emoji (e.g., 👽)" maxlength="2">
-                <input type="text" id="profile-bio" placeholder="Write a short bio..." maxlength="100">
-                <button id="save-profile-button">Save Profile</button>
-            </div>
-        </div>
+        <div id="profile-setup-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Setup Your Profile</h2><p id="profile-error" class="error-message hidden"></p><input type="text" id="profile-name" placeholder="Enter name"><input type="text" id="profile-emoji" placeholder="Enter emoji (e.g., 👽)" maxlength="2"><button id="save-profile-button">Save Profile</button></div></div>
         <div id="add-friend-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Add Friend</h2><p id="add-friend-error" class="error-message hidden"></p><p id="add-friend-success" class="hidden" style="color: var(--accent-color);">Request Sent!</p><input type="text" id="friend-mask-id-input" placeholder="mask-xxxx"><button id="send-friend-request-button">Send</button><button id="close-add-friend-modal-button" class="secondary">Close</button></div></div>
         <div id="menu-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Menu</h2><button id="menu-profile-button">View Profile</button><button id="menu-blocked-button">Blocked Users</button><button id="menu-theme-button">Theme</button><button id="menu-logout-button">Logout</button><button id="menu-close-button" class="secondary">Close</button></div></div>
-        <div id="profile-view-modal" class="modal-overlay hidden">
-            <div class="modal-content">
-                <h2>Your Profile</h2>
-                <p id="profile-update-error" class="error-message hidden"></p>
-                <input type="text" id="profile-edit-name">
-                <input type="text" id="profile-edit-emoji" maxlength="2">
-                <input type="text" id="profile-edit-bio" placeholder="Your bio..." maxlength="100">
-                <div class="profile-id-display">ID: <span id="profile-mask-id"></span></div>
-                <button id="profile-save-changes-button">Save</button>
-                <button id="profile-view-close-button" class="secondary">Close</button>
-            </div>
-        </div>
+        <div id="profile-view-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Your Profile</h2><p id="profile-update-error" class="error-message hidden"></p><input type="text" id="profile-edit-name"><input type="text" id="profile-edit-emoji" maxlength="2"><div class="profile-id-display">ID: <span id="profile-mask-id"></span></div><button id="profile-save-changes-button">Save</button><button id="profile-view-close-button" class="secondary">Close</button></div></div>
         <div id="incoming-call-modal" class="modal-overlay hidden"><div class="modal-content"><h2 class="incoming-call-text">Incoming Call</h2><div id="incoming-call-info" style="margin-bottom: 20px; font-size: 20px;"></div><button id="accept-call-button">Accept</button><button id="reject-call-button" class="danger">Reject</button></div></div>
         <div id="blocked-users-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Blocked Users</h2><div id="blocked-users-list"></div><button id="blocked-users-close-button" class="secondary">Close</button></div></div>
         <div id="friend-profile-modal" class="modal-overlay hidden">
             <div class="modal-content">
                 <div id="friend-profile-emoji" style="font-size: 48px; margin-bottom: 10px;"></div>
-                <h2 id="friend-profile-name" style="color: var(--text-color); margin-bottom: 10px;"></h2>
-                <p id="friend-profile-bio" style="color: var(--text-color); margin-bottom: 20px; font-style: italic;"></p>
+                <h2 id="friend-profile-name" style="color: var(--text-color); margin-bottom: 20px;"></h2>
                 <div class="profile-id-display">ID: <span id="friend-profile-mask-id"></span></div>
                 <button id="friend-profile-close-button" class="secondary">Close</button>
             </div>
         </div>
         
         <!-- Main App Views -->
-        <div id="main-app" class="main-app hidden">
-            <div class="top-bar">
-                <button class="nav-button" id="menu-button">Menu</button>
-                <div class="app-title-small"><a href="https://t.me/MuskLinkBD" target="_blank">MaskLink</a></div>
-                <button class="nav-button" id="add-friend-button">Add Friend</button>
-            </div>
-            <div class="main-content">
-                <div id="pages-container">
-                    <div id="home-page" class="page active"><h2>Friends</h2><div id="contacts-list"></div></div>
-                    <div id="discover-page" class="page">
-                        <h2>Discover People</h2>
-                        <p>Here are some of the users currently online. Say hi!</p>
-                        <button id="refresh-discover-button" class="secondary" style="margin-bottom: 20px;">Refresh List</button>
-                        <div id="discover-list"></div>
-                    </div>
-                    <div id="notifications-page" class="page"><h2>Notifications</h2><div id="notifications-list"></div></div>
-                    <div id="calls-page" class="page"><h2>Call Logs</h2><div id="call-log-list"></div></div>
-                </div>
-            </div>
-            <div class="bottom-bar">
-                <button class="nav-button" data-page="home-page">Home</button>
-                <button class="nav-button" data-page="discover-page">Discover</button>
-                <button class="nav-button" data-page="notifications-page">Notifications <span id="notification-badge" class="notification-badge hidden">0</span></button>
-                <button class="nav-button" data-page="calls-page">Calls</button>
-            </div>
-        </div>
+        <div id="main-app" class="main-app hidden"><div class="top-bar"><button class="nav-button" id="menu-button">Menu</button><div class="app-title-small"><a href="https://t.me/MuskLinkBD" target="_blank">MaskLink</a></div><button class="nav-button" id="add-friend-button">Add Friend</button></div><div class="main-content"><div id="pages-container"><div id="home-page" class="page active"><h2>Friends</h2><div id="contacts-list"></div></div><div id="notifications-page" class="page"><h2>Notifications</h2><div id="notifications-list"></div></div><div id="calls-page" class="page"><h2>Call Logs</h2><div id="call-log-list"></div></div></div></div><div class="bottom-bar"><button class="nav-button" data-page="home-page">Home</button><button class="nav-button" data-page="notifications-page">Notifications <span id="notification-badge" class="notification-badge hidden">0</span></button><button class="nav-button" data-page="calls-page">Calls</button></div></div>
         <div id="chat-view" class="hidden"><div class="chat-header"><button class="back-button" id="chat-back-button">←</button><div class="chat-header-info"><span id="chat-header-emoji"></span><span id="chat-header-name"></span></div><button class="block-button secondary" id="chat-block-button">Block</button></div><div class="messages-container" id="messages-container"></div><div class="chat-input-area"><input type="text" id="message-input" placeholder="Type a message..."><button id="send-message-button">Send</button></div></div>
         
         <div id="call-view" class="hidden"><video id="remote-video" autoplay playsinline></video><video id="local-video" autoplay playsinline muted></video><div class="call-info"><div class="call-info-emoji"></div><div class="call-info-name"></div><div class="call-info-status"></div></div><div class="call-controls"><button id="end-call-button" class="danger">End Call</button></div></div>
     </div>
     
+    <!-- Ringtone source updated -->
     <audio id="ringtone" src="incoming.wav" loop></audio>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -142,10 +97,7 @@
             document.getElementById('menu-button').addEventListener('click', () => document.getElementById('menu-modal').classList.remove('hidden'));
             document.getElementById('add-friend-button').addEventListener('click', () => document.getElementById('add-friend-modal').classList.remove('hidden'));
             document.getElementById('chat-back-button').addEventListener('click', () => { ui.chat.classList.add('hidden'); ui.main.classList.remove('hidden'); currentOpenChatContactUid = null; });
-            document.querySelectorAll('.bottom-bar .nav-button').forEach(btn => btn.addEventListener('click', e => {
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                document.getElementById(e.currentTarget.dataset.page).classList.add('active');
-            }));
+            document.querySelectorAll('.bottom-bar .nav-button').forEach(btn => btn.addEventListener('click', e => {document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));document.getElementById(e.currentTarget.dataset.page).classList.add('active');}));
             document.getElementById('menu-close-button').addEventListener('click', () => document.getElementById('menu-modal').classList.add('hidden'));
             document.getElementById('menu-logout-button').addEventListener('click', () => { if(currentUserData) { database.ref('/status/' + currentUserData.uid).set({ state: 'offline', last_changed: firebase.database.ServerValue.TIMESTAMP }); } auth.signOut(); });
             document.getElementById('menu-profile-button').addEventListener('click', openProfileViewModal);
@@ -161,53 +113,30 @@
             document.getElementById('reject-call-button').addEventListener('click', handleRejectCall);
             document.getElementById('end-call-button').addEventListener('click', () => endCall(true));
             applyTheme(localStorage.getItem('masklink-theme') || 'dark');
-            requestNotificationPermission();
-
-            document.querySelector('.nav-button[data-page="discover-page"]').addEventListener('click', loadDiscoverPage);
-            document.getElementById('refresh-discover-button').addEventListener('click', loadDiscoverPage);
-
-            document.getElementById('discover-list').addEventListener('click', (event) => {
-                if (event.target && event.target.classList.contains('send-request-btn')) {
-                    const recipientUid = event.target.dataset.uid;
-                    sendFriendRequestByUid(recipientUid);
-                    event.target.textContent = 'Sent';
-                    event.target.disabled = true;
-                }
-            });
+            requestNotificationPermission(); 
         }
         
         const handleAuth=(i)=>()=>{const e=i?"signup":"login",t=document.getElementById(`${e}-email`).value.trim(),d=document.getElementById(`${e}-password`).value.trim(),l=document.getElementById(`${e}-error`);l.classList.add("hidden"),t&&d?(i?auth.createUserWithEmailAndPassword(t,d):auth.signInWithEmailAndPassword(t,d)).catch(e=>{l.textContent=e.message,l.classList.remove("hidden")}):(l.textContent="Email & Password required.",l.classList.remove("hidden"))};
-        
-        function handleProfileSave() {
-            const e = auth.currentUser; if (!e) return;
-            const t = document.getElementById("profile-name").value.trim();
-            const d = document.getElementById("profile-emoji").value.trim();
-            const bio = document.getElementById("profile-bio").value.trim();
-            const l = document.getElementById("profile-error");
-
-            if (l.classList.add("hidden"), !t || !d) return l.textContent = "Name & emoji required.", void l.classList.remove("hidden");
-            
-            const n = `mask-${Math.random().toString(36).substr(2, 4)}`;
-            const a = { name: t, emoji: d, uid: e.uid, maskId: n, email: e.email, bio: bio };
-            const o = {};
-            o[`/users/${e.uid}`] = a;
-            o[`/maskIds/${n}`] = e.uid;
-            
-            database.ref().update(o).then(() => loadUserDataAndStartApp(e)).catch(e => { l.textContent = e.message, l.classList.remove("hidden") });
-        }
+        function handleProfileSave() {const e=auth.currentUser;if(!e)return;const t=document.getElementById("profile-name").value.trim(),d=document.getElementById("profile-emoji").value.trim(),l=document.getElementById("profile-error");if(l.classList.add("hidden"),!t||!d)return l.textContent="Name & emoji required.",void l.classList.remove("hidden");const n=`mask-${Math.random().toString(36).substr(2,4)}`,a={name:t,emoji:d,uid:e.uid,maskId:n,email:e.email},o={};o[`/users/${e.uid}`]=a,o[`/maskIds/${n}`]=e.uid,database.ref().update(o).then(()=>loadUserDataAndStartApp(e)).catch(e=>{l.textContent=e.message,l.classList.remove("hidden")})}
         
         function startAppListeners(uid) {
             const addListener=(r,e,t)=>{r.on(e,t);activeListeners.push({ref:r,eventType:e,callback:t})};
             
+            // --- NEW AND IMPROVED NOTIFICATION LOGIC ---
             const unreadMarkersRef = database.ref(`unread_markers/${uid}`);
             
+            // 1. Get initial unread markers on load
             unreadMarkersRef.once('value', snapshot => {
                 unreadMessages = snapshot.val() || {};
                 renderFriendList();
             });
 
+            // 2. Listen for new unread markers (new messages)
             addListener(unreadMarkersRef, 'child_added', handleNewUnreadMessage);
+
+            // 3. Listen for markers being removed (messages read)
             addListener(unreadMarkersRef, 'child_removed', handleReadMessage);
+            // --- END OF NEW LOGIC ---
 
             addListener(database.ref(`users/${uid}`),'value',s=>{currentUserData=s.val()});
             addListener(database.ref(`contacts/${uid}`),'value', handleContactsUpdate);
@@ -219,15 +148,24 @@
             setupPresenceSystem(uid);
         }
 
+        // --- NEW HANDLER FUNCTIONS FOR NOTIFICATIONS ---
         async function handleNewUnreadMessage(snapshot) {
             const senderUid = snapshot.key;
+            console.log("New unread message from:", senderUid);
+            
+            // Update UI
             unreadMessages[senderUid] = true;
             renderFriendList();
 
-            if ((currentOpenChatContactUid === senderUid && !document.hidden)) return;
+            // Check if we should send a notification
+            if ((currentOpenChatContactUid === senderUid && !document.hidden)) {
+                console.log("Not notifying: chat is open and active.");
+                return;
+            }
 
             const contactInfo = userContacts[senderUid];
             if (contactInfo) {
+                // Fetch the last message to show in the notification body
                 const chatID = generateChatID(currentUserData.uid, senderUid);
                 const lastMessageSnapshot = await database.ref(`messages/${chatID}`).orderByChild('timestamp').limitToLast(1).once('value');
                 if(lastMessageSnapshot.exists()) {
@@ -238,9 +176,13 @@
         }
 
         function handleReadMessage(snapshot) {
-            delete unreadMessages[snapshot.key];
+            const senderUid = snapshot.key;
+            console.log("Messages from", senderUid, "have been read.");
+            // Update UI
+            delete unreadMessages[senderUid];
             renderFriendList();
         }
+        // --- END OF NEW HANDLER FUNCTIONS ---
 
         function handleContactsUpdate(snapshot) { userContacts = snapshot.val() || {}; renderFriendList(); }
         function handleBlockedUsersUpdate(snapshot) { blockedUsers = snapshot.val() || {}; renderFriendList(); }
@@ -274,42 +216,7 @@
         function createRequestElement(key, request) {const el=document.createElement("div");el.className="list-item";el.innerHTML=`<span class="list-item-emoji">${request.senderEmoji}</span><div class="list-item-info"><span class="list-item-name">${request.senderName}</span><span>wants to connect.</span></div><div class="list-item-actions"><button>Accept</button><button class="danger">Reject</button></div>`;el.querySelector("button:first-child").onclick=()=>handleRequest(key,request.senderUid,!0);el.querySelector("button:last-child").onclick=()=>handleRequest(key,request.senderUid,!1);return el}
         function renderCallLogs(snapshot) {const list=document.getElementById('call-log-list');list.innerHTML='';if(!snapshot.exists()){list.innerHTML='<p>Call history is empty.</p>';return}const logs=[];snapshot.forEach(s=>logs.push(s.val()));logs.reverse().forEach(log=>{const el=document.createElement('div');el.className='list-item';el.innerHTML=`<span class="list-item-emoji">${log.type==='video'?'📹':'📞'}</span><div class="list-item-info"><span class="list-item-name">${log.contactName} (${log.direction})</span><span>${new Date(log.timestamp).toLocaleString()}</span></div>`;list.appendChild(el)})}
         
-        async function handleRequest(key, senderUid, accepted) {
-            const myUid = auth.currentUser.uid;
-            if (!myUid) return;
-            const reqRef = database.ref(`requests/${myUid}/${key}`);
-            
-            if (!accepted) {
-                await reqRef.remove();
-                return;
-            }
-
-            const senderSnap = await database.ref(`users/${senderUid}`).once('value');
-            const senderData = senderSnap.val();
-            
-            if (!senderData || !currentUserData) return;
-
-            const updates = {};
-            
-            updates[`/contacts/${myUid}/${senderUid}`] = {
-                name: senderData.name,
-                emoji: senderData.emoji,
-                uid: senderData.uid,
-                bio: senderData.bio || ''
-            };
-            
-            updates[`/contacts/${senderUid}/${myUid}`] = {
-                name: currentUserData.name,
-                emoji: currentUserData.emoji,
-                uid: currentUserData.uid,
-                bio: currentUserData.bio || ''
-            };
-
-            updates[`/requests/${myUid}/${key}`] = null;
-            
-            await database.ref().update(updates);
-        }
-
+        async function handleRequest(key, senderUid, accepted) {const myUid = auth.currentUser.uid;if (!myUid) return;const reqRef = database.ref(`requests/${myUid}/${key}`);if (!accepted) { await reqRef.remove(); return; }const senderSnap = await database.ref(`users/${senderUid}`).once('value');const senderData = senderSnap.val();if (!senderData || !currentUserData) return;const updates = {};updates[`/contacts/${myUid}/${senderUid}`] = {name: senderData.name, emoji: senderData.emoji, uid: senderData.uid};updates[`/contacts/${senderUid}/${myUid}`] = {name: currentUserData.name, emoji: currentUserData.emoji, uid: currentUserData.uid};updates[`/requests/${myUid}/${key}`] = null;await database.ref().update(updates);}
         function showChatView(contact) {
             if (blockedUsers[contact.uid]) { alert("This user is blocked."); return; }
             currentOpenChatContactUid = contact.uid;
@@ -336,65 +243,30 @@
             inputEl.value = "";
         }
         function toggleTheme(){let e=document.body.classList.contains("light-theme")?"dark":"light";localStorage.setItem("masklink-theme",e);applyTheme(e)}function applyTheme(e){document.body.classList.toggle("light-theme",e==="light")}
-        
-        function openProfileViewModal() {
-            if (!currentUserData) return;
-            document.getElementById('profile-edit-name').value = currentUserData.name;
-            document.getElementById('profile-edit-emoji').value = currentUserData.emoji;
-            document.getElementById('profile-edit-bio').value = currentUserData.bio || '';
-            document.getElementById('profile-mask-id').textContent = currentUserData.maskId;
-            document.getElementById('profile-view-modal').classList.remove('hidden');
-            document.getElementById('menu-modal').classList.add('hidden');
-        }
-        
-        async function saveProfileChanges() {
-            const e = document.getElementById("profile-edit-name").value.trim();
-            const t = document.getElementById("profile-edit-emoji").value.trim();
-            const bio = document.getElementById("profile-edit-bio").value.trim();
-            const a = document.getElementById("profile-update-error");
-
-            if (!e || !t) return a.textContent = "Name and Emoji cannot be empty.", void a.classList.remove("hidden");
-            
-            database.ref("users/" + currentUserData.uid).update({ name: e, emoji: t, bio: bio })
-                .then(() => document.getElementById('profile-view-modal').classList.add("hidden"))
-                .catch(e => { a.textContent = e.message, a.classList.remove("hidden") });
-        }
-        
-        function showFriendProfile(friendUid) {
-            database.ref(`users/${friendUid}`).once('value', snapshot => {
-                if (snapshot.exists()) {
-                    const friendData = snapshot.val();
-                    document.getElementById('friend-profile-emoji').textContent = friendData.emoji;
-                    document.getElementById('friend-profile-name').textContent = friendData.name;
-                    const bioElement = document.getElementById('friend-profile-bio');
-                    if (friendData.bio && friendData.bio.trim() !== '') {
-                        bioElement.textContent = `"${friendData.bio}"`;
-                    } else {
-                        bioElement.textContent = 'No bio yet.';
-                    }
-                    document.getElementById('friend-profile-mask-id').textContent = friendData.maskId;
-                    document.getElementById('friend-profile-modal').classList.remove('hidden');
-                } else {
-                    alert("Could not load friend's details.");
-                }
-            });
-        }
+        function openProfileViewModal(){if(!currentUserData)return;document.getElementById('profile-edit-name').value=currentUserData.name;document.getElementById('profile-edit-emoji').value=currentUserData.emoji;document.getElementById('profile-mask-id').textContent=currentUserData.maskId;document.getElementById('profile-view-modal').classList.remove('hidden');document.getElementById('menu-modal').classList.add('hidden')}
+        async function saveProfileChanges(){const e=document.getElementById("profile-edit-name").value.trim(),t=document.getElementById("profile-edit-emoji").value.trim(),a=document.getElementById("profile-update-error");if(!e||!t)return a.textContent="Name and Emoji cannot be empty.",void a.classList.remove("hidden");database.ref("users/"+currentUserData.uid).update({name:e,emoji:t}).then(()=>document.getElementById('profile-view-modal').classList.add("hidden")).catch(e=>{a.textContent=e.message,a.classList.remove("hidden")})}
+        function showFriendProfile(friendUid) {database.ref(`users/${friendUid}`).once('value', snapshot => {if (snapshot.exists()) {const friendData = snapshot.val();document.getElementById('friend-profile-emoji').textContent = friendData.emoji;document.getElementById('friend-profile-name').textContent = friendData.name;document.getElementById('friend-profile-mask-id').textContent = friendData.maskId;document.getElementById('friend-profile-modal').classList.remove('hidden');} else {alert("Could not load friend's details.");}});}
         
         function requestNotificationPermission() {
-            if ('Notification' in window) {
-                if (Notification.permission !== 'denied') {
-                    Notification.requestPermission().then(permission => {
-                        console.log('Notification permission status:', permission);
-                    });
-                }
-            } else {
-                console.log("This browser does not support desktop notifications.");
+            if (!('Notification' in window)) {
+                alert("This browser does not support desktop notification");
+                return;
+            }
+            if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    console.log('Notification permission status:', permission);
+                });
             }
         }
 
         function showNotification(title, body) {
             if ('Notification' in window && Notification.permission === 'granted') {
-                const notification = new Notification(title, { body: body, tag: 'masklink-message' });
+                const notification = new Notification(title, {
+                    body: body,
+                    tag: 'masklink-message' 
+                });
+            } else {
+                 console.log('Notification permission not granted.');
             }
         }
 
@@ -422,75 +294,6 @@
         async function sendFriendRequest(){const i=document.getElementById("friend-mask-id-input"),id=i.value.trim(),e=document.getElementById("add-friend-error"),s=document.getElementById("add-friend-success");e.classList.add("hidden");s.classList.add("hidden");if(!id){e.textContent="Mask ID required";e.classList.remove("hidden");return}if(id===currentUserData.maskId){e.textContent="You can't add yourself.";e.classList.remove("hidden");return}try{const r=await database.ref("maskIds").child(id).once("value");if(!r.exists()){e.textContent="User not found.";e.classList.remove("hidden");return}const u=r.val(),c=await database.ref(`contacts/${currentUserData.uid}/${u}`).once("value");if(c.exists()){e.textContent="Already friends.";e.classList.remove("hidden");return}const d={senderUid:currentUserData.uid,senderName:currentUserData.name,senderEmoji:currentUserData.emoji};await database.ref(`requests/${u}`).push(d);s.classList.remove("hidden");setTimeout(()=>document.getElementById("add-friend-modal").classList.add("hidden"),2e3)}catch(t){e.textContent=t.message;e.classList.remove("hidden")}}
         function generateChatID(a,b){return a<b?`${a}_${b}`:`${b}_${a}`}
         function displayMessage(msg){const el=document.createElement("div");el.className="message-bubble";el.textContent=msg.text;el.classList.add(msg.senderId===currentUserData.uid?"sent":"received");const cont=document.getElementById("messages-container");cont.appendChild(el);cont.scrollTop=cont.scrollHeight}
-        
-        async function loadDiscoverPage() {
-            const discoverList = document.getElementById('discover-list');
-            discoverList.innerHTML = '<p>Searching for online users...</p>';
-            try {
-                const onlineUsersSnapshot = await database.ref('/status').orderByChild('state').equalTo('online').once('value');
-                if (!onlineUsersSnapshot.exists()) {
-                    discoverList.innerHTML = '<p>No other users are online right now. Try again later!</p>';
-                    return;
-                }
-                const onlineUsers = onlineUsersSnapshot.val();
-                let discoverableUids = Object.keys(onlineUsers).filter(uid => 
-                    uid !== currentUserData.uid && !userContacts[uid]
-                );
-                if (discoverableUids.length === 0) {
-                    discoverList.innerHTML = '<p>Everyone online is already your friend!</p>';
-                    return;
-                }
-                discoverableUids.sort(() => 0.5 - Math.random());
-                const randomUidsToShow = discoverableUids.slice(0, 10);
-                const userPromises = randomUidsToShow.map(uid => database.ref(`/users/${uid}`).once('value'));
-                const userSnapshots = await Promise.all(userPromises);
-                discoverList.innerHTML = '';
-                userSnapshots.forEach(userSnap => {
-                    const userData = userSnap.val();
-                    if (userData) {
-                        const userElement = document.createElement('div');
-                        userElement.className = 'list-item';
-                        userElement.innerHTML = `
-                            <div class="list-item-main-info">
-                                <span class="list-item-emoji">${userData.emoji}</span>
-                                <div class="list-item-info">
-                                    <span class="list-item-name">${userData.name}</span>
-                                    <span>Mask ID: ${userData.maskId}</span>
-                                </div>
-                            </div>
-                            <div class="list-item-actions">
-                                <button class="send-request-btn" data-uid="${userData.uid}">Send Request</button>
-                            </div>
-                        `;
-                        discoverList.appendChild(userElement);
-                    }
-                });
-            } catch (error) {
-                console.error("Error loading discover page:", error);
-                discoverList.innerHTML = '<p>Could not load users. Please check your connection and try again.</p>';
-            }
-        }
-
-        async function sendFriendRequestByUid(recipientUid) {
-            if (!recipientUid || recipientUid === currentUserData.uid) return;
-            try {
-                const contactSnap = await database.ref(`contacts/${currentUserData.uid}/${recipientUid}`).once('value');
-                if (contactSnap.exists()) {
-                    alert("You are already friends with this user.");
-                    return;
-                }
-                const requestData = {
-                    senderUid: currentUserData.uid,
-                    senderName: currentUserData.name,
-                    senderEmoji: currentUserData.emoji
-                };
-                await database.ref(`requests/${recipientUid}`).push(requestData);
-                alert("Friend request sent successfully!");
-            } catch (error) {
-                console.error("Error sending friend request:", error);
-                alert("Failed to send friend request. Please try again.");
-            }
-        }
         
         attachAllEventListeners();
     });
