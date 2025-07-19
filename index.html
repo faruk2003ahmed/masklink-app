@@ -9,7 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root{--bg:#000814;--text-color:#ffffff;--accent-color:#00ff9f;--secondary-accent:#3a8bfd;--error-color:#ff3b3b;--dark-blue-black:#000814;}body.light-theme{--bg:#f0f2f5;--text-color:#1c1e21;--accent-color:#008a5e;--secondary-accent:#1877f2;--dark-blue-black:#ffffff;}body{background-color:var(--bg);color:var(--text-color);font-family:'Share Tech Mono',monospace;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;transition:background-color .3s,color .3s;overflow-x:hidden;}*{box-sizing:border-box;}
-        #bg-video{position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;background-size:cover;opacity:.3;}
+        
+        /* --- ভিডিওর চিহ্ন ঢাকার জন্য CSS পরিবর্তন --- */
+        #bg-video{
+            position:fixed;
+            right:0;
+            bottom:0;
+            min-width:100%;
+            min-height:100%;
+            width:auto;
+            height:auto;
+            z-index:-100;
+            background-size:cover;
+            opacity:.3;
+            /* এই নতুন লাইনটি চিহ্নগুলো লুকিয়ে ফেলবে */
+            filter: blur(2px) brightness(0.7); 
+        }
+
         .container{width:100%;max-width:400px;padding:20px;display:flex;flex-direction:column;align-items:center;z-index:2;}.app-title{font-size:40px;color:var(--accent-color);text-shadow:0 0 10px var(--accent-color),0 0 20px var(--accent-color);text-align:center;margin-bottom:30px;}.app-title a{color:inherit;text-decoration:none;}.form-container{display:flex;flex-direction:column;width:100%;align-items:center;}input[type=email],input[type=password],input[type=text]{border-radius:25px;border:2px solid var(--accent-color);background:transparent;color:var(--text-color);padding:12px 20px;margin-bottom:15px;width:100%;max-width:350px;font-family:'Share Tech Mono',monospace;}input::placeholder{color:var(--text-color);opacity:.7;}button{border-radius:50px;background:var(--accent-color);color:var(--dark-blue-black);font-weight:700;border:none;padding:12px 0;cursor:pointer;width:100%;max-width:350px;transition:box-shadow .3s ease,background-color .3s;font-family:'Share Tech Mono',monospace;font-size:16px;margin-top:10px;}button.secondary{background:var(--secondary-accent);color:var(--white);}button.danger{background-color:#c92a2a;color:#fff;}button:hover{box-shadow:0 0 15px var(--accent-color);}.form-switch{font-size:13px;color:var(--text-color);text-align:center;margin-top:20px;}.form-switch span{color:var(--accent-color);text-decoration:underline;cursor:pointer;}.error-message{color:var(--error-color);text-align:center;margin-bottom:15px;font-size:14px;max-width:350px;}.hidden{display:none!important;}.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:1000;}.modal-content{background:var(--bg);padding:30px;border-radius:10px;border:2px solid var(--accent-color);width:90%;max-width:400px;box-shadow:0 0 20px var(--secondary-accent);text-align:center;}.modal-content h2{color:var(--accent-color);margin-top:0;margin-bottom:20px;}.profile-id-display{background:rgba(255,255,255,.1);padding:10px;border-radius:10px;margin-top:15px;font-size:14px;color:var(--accent-color);border:1px dashed var(--accent-color);word-break:break-all;}#app-container{width:100%;height:100vh;z-index:1;}.main-app{width:100%;height:100%;display:flex;flex-direction:column;}.top-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;background:#000c1f;border-bottom:1px solid var(--accent-color);position:fixed;top:0;width:100%;z-index:100}body.light-theme .top-bar{background:#e9ebee;border-bottom:1px solid #ccc;}.top-bar .app-title-small{font-size:24px;color:var(--accent-color);text-shadow:0 0 5px var(--accent-color);}.top-bar .app-title-small a{color:inherit;text-decoration:none;}.main-content{flex-grow:1;padding:20px;overflow-y:auto;margin-top:60px;margin-bottom:60px;width:100%;}.page{display:none;}.page.active{display:block;}.bottom-bar{display:flex;justify-content:space-around;padding:10px 0;background:#000c1f;border-top:1px solid var(--accent-color);position:fixed;bottom:0;left:0;width:100%;z-index:100}.nav-button{position:relative;background:none;border:none;color:var(--text-color);font-family:'Share Tech Mono',monospace;font-size:16px;cursor:pointer;padding:5px 10px;}.nav-button:hover{color:var(--accent-color);}.notification-badge{position:absolute;top:-5px;right:0;background-color:var(--error-color);color:#fff;border-radius:50%;width:20px;height:20px;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:700;}
         .list-item{background-color:rgba(255,255,255,0.05);border:1px solid var(--accent-color);border-radius:10px;padding:15px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;text-align:left;}
         .list-item-main-info{flex-grow:1;display:flex;align-items:center;cursor:pointer;}
@@ -30,6 +46,8 @@
         <source src="mask.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+    <!-- বাকি HTML এবং JavaScript কোড অপরিবর্তিত থাকবে -->
 
     <div id="loader" class="container"><h1 class="app-title"><a href="https://t.me/MuskLinkBD" target="_blank">MaskLink</a></h1><p>Connecting...</p></div>
     <div id="auth-container" class="container hidden"><h1 class="app-title"><a href="https://t.me/MuskLinkBD" target="_blank">MaskLink</a></h1><div id="login-form" class="form-container"><p id="login-error" class="error-message hidden"></p><input type="email" id="login-email" placeholder="Email"><input type="password" id="login-password" placeholder="Password"><button id="login-button">Login</button><p class="form-switch">Don't have an account? <span id="show-signup">Sign up</span></p></div><div id="signup-form" class="form-container hidden"><p id="signup-error" class="error-message hidden"></p><input type="email" id="signup-email" placeholder="Email"><input type="password" id="signup-password" placeholder="Password"><button id="signup-button">Sign Up</button><p class="form-switch">Already have an account? <span id="show-login">Log in</span></p></div></div>
@@ -71,7 +89,6 @@
             </div>
         </div>
         
-        <!-- Main App Views -->
         <div id="main-app" class="main-app hidden">
             <div class="top-bar">
                 <button class="nav-button" id="menu-button">Menu</button>
@@ -110,356 +127,356 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const firebaseConfig = { apiKey: "AIzaSyAuVZ3Bd8TRjw-_piAv0yvlqBUg0varUdE", authDomain: "calling-apps-57407.firebaseapp.com", databaseURL: "https://calling-apps-57407-default-rtdb.firebaseio.com", projectId: "calling-apps-57407", storageBucket: "calling-apps-57407.appspot.com", messagingSenderId: "327576569873", appId: "1:327576569873:web:9ed9c1b01e1ef7ba8e89b0" };
-        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const database = firebase.database();
-        let currentUserData = null, activeListeners = [], peerConnection, localStream, incomingCallData;
-        let userContacts = {}, blockedUsers = {}, unreadMessages = {}, onlineStatus = {}, currentOpenChatContactUid = null, currentCallContactUid = null;
-        const stunServers = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
-        const ui = {loader: document.getElementById('loader'),auth: document.getElementById('auth-container'),app: document.getElementById('app-container'),main: document.getElementById('main-app'),chat: document.getElementById('chat-view'),profileSetup: document.getElementById('profile-setup-modal'),call: document.getElementById('call-view'),incomingCall: document.getElementById('incoming-call-modal'),ringtone: document.getElementById('ringtone')};
+        // --- বাকি সব JavaScript কোড অপরিবর্তিত থাকবে ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const firebaseConfig = { apiKey: "AIzaSyAuVZ3Bd8TRjw-_piAv0yvlqBUg0varUdE", authDomain: "calling-apps-57407.firebaseapp.com", databaseURL: "https://calling-apps-57407-default-rtdb.firebaseio.com", projectId: "calling-apps-57407", storageBucket: "calling-apps-57407.appspot.com", messagingSenderId: "327576569873", appId: "1:327576569873:web:9ed9c1b01e1ef7ba8e89b0" };
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const database = firebase.database();
+            let currentUserData = null, activeListeners = [], peerConnection, localStream, incomingCallData;
+            let userContacts = {}, blockedUsers = {}, unreadMessages = {}, onlineStatus = {}, currentOpenChatContactUid = null, currentCallContactUid = null;
+            const stunServers = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+            const ui = {loader: document.getElementById('loader'),auth: document.getElementById('auth-container'),app: document.getElementById('app-container'),main: document.getElementById('main-app'),chat: document.getElementById('chat-view'),profileSetup: document.getElementById('profile-setup-modal'),call: document.getElementById('call-view'),incomingCall: document.getElementById('incoming-call-modal'),ringtone: document.getElementById('ringtone')};
 
-        auth.onAuthStateChanged(user => user ? loadUserDataAndStartApp(user) : cleanupAndShowUI('auth'));
-        function loadUserDataAndStartApp(user) {database.ref('users/' + user.uid).once('value', s => {if (s.exists()) {currentUserData = s.val();cleanupAndShowUI('app');startAppListeners(user.uid);} else {cleanupAndShowUI('profileSetup');}});}
-        function cleanupAndShowUI(uiName) {
-            activeListeners.forEach(({ ref, eventType, callback }) => ref.off(eventType, callback)); activeListeners = [];
-            if (uiName === 'auth') { currentUserData = null; userContacts = {}; blockedUsers = {}; unreadMessages = {}; onlineStatus = {}; currentOpenChatContactUid = null; }
-            Object.values(ui).forEach(v => v.classList.add('hidden'));
-            const viewToShow = (uiName === 'profileSetup' || uiName === 'app') ? ui.app : ui[uiName];
-            if(uiName !== 'app') document.body.style.background = 'var(--bg)'; 
-            if (viewToShow) viewToShow.classList.remove('hidden');
-            if (uiName === 'profileSetup') ui.profileSetup.classList.remove('hidden');
-            if (uiName === 'app') ui.main.classList.remove('hidden');
-        }
-
-        function attachAllEventListeners() {
-            document.getElementById('show-signup').addEventListener('click', () => { document.getElementById('login-form').classList.add('hidden'); document.getElementById('signup-form').classList.remove('hidden'); });
-            document.getElementById('show-login').addEventListener('click', () => { document.getElementById('signup-form').classList.add('hidden'); document.getElementById('login-form').classList.remove('hidden'); });
-            document.getElementById('login-button').addEventListener('click', handleAuth(false));
-            document.getElementById('signup-button').addEventListener('click', handleAuth(true));
-            document.getElementById('save-profile-button').addEventListener('click', handleProfileSave);
-            document.getElementById('menu-button').addEventListener('click', () => document.getElementById('menu-modal').classList.remove('hidden'));
-            document.getElementById('add-friend-button').addEventListener('click', () => document.getElementById('add-friend-modal').classList.remove('hidden'));
-            document.getElementById('chat-back-button').addEventListener('click', () => { ui.chat.classList.add('hidden'); ui.main.classList.remove('hidden'); currentOpenChatContactUid = null; });
-            document.querySelectorAll('.bottom-bar .nav-button').forEach(btn => btn.addEventListener('click', e => {
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                document.getElementById(e.currentTarget.dataset.page).classList.add('active');
-            }));
-            document.getElementById('menu-close-button').addEventListener('click', () => document.getElementById('menu-modal').classList.add('hidden'));
-            document.getElementById('menu-logout-button').addEventListener('click', () => { if(currentUserData) { database.ref('/status/' + currentUserData.uid).set({ state: 'offline', last_changed: firebase.database.ServerValue.TIMESTAMP }); } auth.signOut(); });
-            document.getElementById('menu-profile-button').addEventListener('click', openProfileViewModal);
-            document.getElementById('menu-theme-button').addEventListener('click', toggleTheme);
-            document.getElementById('menu-blocked-button').addEventListener('click', openBlockedUsersModal);
-            document.getElementById('close-add-friend-modal-button').addEventListener('click', () => document.getElementById('add-friend-modal').classList.add('hidden'));
-            document.getElementById('send-friend-request-button').addEventListener('click', sendFriendRequest);
-            document.getElementById('profile-view-close-button').addEventListener('click', () => document.getElementById('profile-view-modal').classList.add('hidden'));
-            document.getElementById('profile-save-changes-button').addEventListener('click', saveProfileChanges);
-            document.getElementById('blocked-users-close-button').addEventListener('click', () => document.getElementById('blocked-users-modal').classList.add('hidden'));
-            document.getElementById('friend-profile-close-button').addEventListener('click', () => document.getElementById('friend-profile-modal').classList.add('hidden'));
-            document.getElementById('accept-call-button').addEventListener('click', handleAcceptCall);
-            document.getElementById('reject-call-button').addEventListener('click', handleRejectCall);
-            document.getElementById('end-call-button').addEventListener('click', () => endCall(true));
-            applyTheme(localStorage.getItem('masklink-theme') || 'dark');
-            requestNotificationPermission();
-
-            document.querySelector('.nav-button[data-page="discover-page"]').addEventListener('click', loadDiscoverPage);
-            document.getElementById('refresh-discover-button').addEventListener('click', loadDiscoverPage);
-
-            document.getElementById('discover-list').addEventListener('click', (event) => {
-                if (event.target && event.target.classList.contains('send-request-btn')) {
-                    const recipientUid = event.target.dataset.uid;
-                    sendFriendRequestByUid(recipientUid);
-                    event.target.textContent = 'Sent';
-                    event.target.disabled = true;
-                }
-            });
-        }
-        
-        const handleAuth=(i)=>()=>{const e=i?"signup":"login",t=document.getElementById(`${e}-email`).value.trim(),d=document.getElementById(`${e}-password`).value.trim(),l=document.getElementById(`${e}-error`);l.classList.add("hidden"),t&&d?(i?auth.createUserWithEmailAndPassword(t,d):auth.signInWithEmailAndPassword(t,d)).catch(e=>{l.textContent=e.message,l.classList.remove("hidden")}):(l.textContent="Email & Password required.",l.classList.remove("hidden"))};
-        
-        function handleProfileSave() {
-            const e = auth.currentUser; if (!e) return;
-            const t = document.getElementById("profile-name").value.trim();
-            const d = document.getElementById("profile-emoji").value.trim();
-            const bio = document.getElementById("profile-bio").value.trim();
-            const l = document.getElementById("profile-error");
-
-            if (l.classList.add("hidden"), !t || !d) return l.textContent = "Name & emoji required.", void l.classList.remove("hidden");
-            
-            const n = `mask-${Math.random().toString(36).substr(2, 4)}`;
-            const a = { name: t, emoji: d, uid: e.uid, maskId: n, email: e.email, bio: bio };
-            const o = {};
-            o[`/users/${e.uid}`] = a;
-            o[`/maskIds/${n}`] = e.uid;
-            
-            database.ref().update(o).then(() => loadUserDataAndStartApp(e)).catch(e => { l.textContent = e.message, l.classList.remove("hidden") });
-        }
-        
-        function startAppListeners(uid) {
-            const addListener=(r,e,t)=>{r.on(e,t);activeListeners.push({ref:r,eventType:e,callback:t})};
-            
-            const unreadMarkersRef = database.ref(`unread_markers/${uid}`);
-            
-            unreadMarkersRef.once('value', snapshot => {
-                unreadMessages = snapshot.val() || {};
-                renderFriendList();
-            });
-
-            addListener(unreadMarkersRef, 'child_added', handleNewUnreadMessage);
-            addListener(unreadMarkersRef, 'child_removed', handleReadMessage);
-
-            addListener(database.ref(`users/${uid}`),'value',s=>{currentUserData=s.val()});
-            addListener(database.ref(`contacts/${uid}`),'value', handleContactsUpdate);
-            addListener(database.ref(`requests/${uid}`),'value',renderFriendRequests);
-            addListener(database.ref(`callLogs/${uid}`),'value',renderCallLogs);
-            addListener(database.ref(`calls/${uid}`),'value',handleIncomingCallSignal);
-            addListener(database.ref(`blocked/${uid}`), 'value', handleBlockedUsersUpdate);
-            addListener(database.ref('/status'), 'value', handleOnlineStatusUpdate);
-            setupPresenceSystem(uid);
-        }
-
-        async function handleNewUnreadMessage(snapshot) {
-            const senderUid = snapshot.key;
-            unreadMessages[senderUid] = true;
-            renderFriendList();
-
-            if ((currentOpenChatContactUid === senderUid && !document.hidden)) return;
-
-            const contactInfo = userContacts[senderUid];
-            if (contactInfo) {
-                const chatID = generateChatID(currentUserData.uid, senderUid);
-                const lastMessageSnapshot = await database.ref(`messages/${chatID}`).orderByChild('timestamp').limitToLast(1).once('value');
-                if(lastMessageSnapshot.exists()) {
-                    const messageData = Object.values(lastMessageSnapshot.val())[0];
-                    showNotification(`${contactInfo.emoji} ${contactInfo.name}`, messageData.text);
-                }
+            auth.onAuthStateChanged(user => user ? loadUserDataAndStartApp(user) : cleanupAndShowUI('auth'));
+            function loadUserDataAndStartApp(user) {database.ref('users/' + user.uid).once('value', s => {if (s.exists()) {currentUserData = s.val();cleanupAndShowUI('app');startAppListeners(user.uid);} else {cleanupAndShowUI('profileSetup');}});}
+            function cleanupAndShowUI(uiName) {
+                activeListeners.forEach(({ ref, eventType, callback }) => ref.off(eventType, callback)); activeListeners = [];
+                if (uiName === 'auth') { currentUserData = null; userContacts = {}; blockedUsers = {}; unreadMessages = {}; onlineStatus = {}; currentOpenChatContactUid = null; }
+                Object.values(ui).forEach(v => v.classList.add('hidden'));
+                const viewToShow = (uiName === 'profileSetup' || uiName === 'app') ? ui.app : ui[uiName];
+                if(uiName !== 'app') document.body.style.background = 'var(--bg)'; 
+                if (viewToShow) viewToShow.classList.remove('hidden');
+                if (uiName === 'profileSetup') ui.profileSetup.classList.remove('hidden');
+                if (uiName === 'app') ui.main.classList.remove('hidden');
             }
-        }
 
-        function handleReadMessage(snapshot) {
-            delete unreadMessages[snapshot.key];
-            renderFriendList();
-        }
+            function attachAllEventListeners() {
+                document.getElementById('show-signup').addEventListener('click', () => { document.getElementById('login-form').classList.add('hidden'); document.getElementById('signup-form').classList.remove('hidden'); });
+                document.getElementById('show-login').addEventListener('click', () => { document.getElementById('signup-form').classList.add('hidden'); document.getElementById('login-form').classList.remove('hidden'); });
+                document.getElementById('login-button').addEventListener('click', handleAuth(false));
+                document.getElementById('signup-button').addEventListener('click', handleAuth(true));
+                document.getElementById('save-profile-button').addEventListener('click', handleProfileSave);
+                document.getElementById('menu-button').addEventListener('click', () => document.getElementById('menu-modal').classList.remove('hidden'));
+                document.getElementById('add-friend-button').addEventListener('click', () => document.getElementById('add-friend-modal').classList.remove('hidden'));
+                document.getElementById('chat-back-button').addEventListener('click', () => { ui.chat.classList.add('hidden'); ui.main.classList.remove('hidden'); currentOpenChatContactUid = null; });
+                document.querySelectorAll('.bottom-bar .nav-button').forEach(btn => btn.addEventListener('click', e => {
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                    document.getElementById(e.currentTarget.dataset.page).classList.add('active');
+                }));
+                document.getElementById('menu-close-button').addEventListener('click', () => document.getElementById('menu-modal').classList.add('hidden'));
+                document.getElementById('menu-logout-button').addEventListener('click', () => { if(currentUserData) { database.ref('/status/' + currentUserData.uid).set({ state: 'offline', last_changed: firebase.database.ServerValue.TIMESTAMP }); } auth.signOut(); });
+                document.getElementById('menu-profile-button').addEventListener('click', openProfileViewModal);
+                document.getElementById('menu-theme-button').addEventListener('click', toggleTheme);
+                document.getElementById('menu-blocked-button').addEventListener('click', openBlockedUsersModal);
+                document.getElementById('close-add-friend-modal-button').addEventListener('click', () => document.getElementById('add-friend-modal').classList.add('hidden'));
+                document.getElementById('send-friend-request-button').addEventListener('click', sendFriendRequest);
+                document.getElementById('profile-view-close-button').addEventListener('click', () => document.getElementById('profile-view-modal').classList.add('hidden'));
+                document.getElementById('profile-save-changes-button').addEventListener('click', saveProfileChanges);
+                document.getElementById('blocked-users-close-button').addEventListener('click', () => document.getElementById('blocked-users-modal').classList.add('hidden'));
+                document.getElementById('friend-profile-close-button').addEventListener('click', () => document.getElementById('friend-profile-modal').classList.add('hidden'));
+                document.getElementById('accept-call-button').addEventListener('click', handleAcceptCall);
+                document.getElementById('reject-call-button').addEventListener('click', handleRejectCall);
+                document.getElementById('end-call-button').addEventListener('click', () => endCall(true));
+                applyTheme(localStorage.getItem('masklink-theme') || 'dark');
+                requestNotificationPermission();
 
-        function handleContactsUpdate(snapshot) { userContacts = snapshot.val() || {}; renderFriendList(); }
-        function handleBlockedUsersUpdate(snapshot) { blockedUsers = snapshot.val() || {}; renderFriendList(); }
-        function handleOnlineStatusUpdate(snapshot) { onlineStatus = snapshot.val() || {}; renderFriendList(); }
-        
-        function renderFriendList() {
-            if (!currentUserData) return;
-            const list = document.getElementById('contacts-list'); list.innerHTML = '';
-            if (Object.keys(userContacts).length === 0) { list.innerHTML = '<p>Your friends list is empty.</p>'; return; }
+                document.querySelector('.nav-button[data-page="discover-page"]').addEventListener('click', loadDiscoverPage);
+                document.getElementById('refresh-discover-button').addEventListener('click', loadDiscoverPage);
 
-            Object.values(userContacts).forEach(c => {
-                if (blockedUsers[c.uid]) return;
+                document.getElementById('discover-list').addEventListener('click', (event) => {
+                    if (event.target && event.target.classList.contains('send-request-btn')) {
+                        const recipientUid = event.target.dataset.uid;
+                        sendFriendRequestByUid(recipientUid);
+                        event.target.textContent = 'Sent';
+                        event.target.disabled = true;
+                    }
+                });
+            }
+            
+            const handleAuth=(i)=>()=>{const e=i?"signup":"login",t=document.getElementById(`${e}-email`).value.trim(),d=document.getElementById(`${e}-password`).value.trim(),l=document.getElementById(`${e}-error`);l.classList.add("hidden"),t&&d?(i?auth.createUserWithEmailAndPassword(t,d):auth.signInWithEmailAndPassword(t,d)).catch(e=>{l.textContent=e.message,l.classList.remove("hidden")}):(l.textContent="Email & Password required.",l.classList.remove("hidden"))};
+            
+            function handleProfileSave() {
+                const e = auth.currentUser; if (!e) return;
+                const t = document.getElementById("profile-name").value.trim();
+                const d = document.getElementById("profile-emoji").value.trim();
+                const bio = document.getElementById("profile-bio").value.trim();
+                const l = document.getElementById("profile-error");
+
+                if (l.classList.add("hidden"), !t || !d) return l.textContent = "Name & emoji required.", void l.classList.remove("hidden");
                 
-                const status = onlineStatus[c.uid]?.state === 'online' ? 'online' : 'offline';
-                const statusIndicator = `<span class="status-indicator ${status}"></span>`;
-                const unreadIndicator = unreadMessages[c.uid] ? '<span class="unread-dot"></span>' : '';
-
-                const el = document.createElement('div'); el.className = 'list-item';
-                const mainInfo = document.createElement('div'); mainInfo.className = 'list-item-main-info';
-                mainInfo.innerHTML = `<span class="list-item-emoji">${statusIndicator}${c.emoji}</span><div class="list-item-info"><span class="list-item-name">${c.name}</span>${unreadIndicator}</div>`;
-                mainInfo.onclick = () => showChatView(c);
-                const actions = document.createElement('div'); actions.className = 'list-item-actions';
-                actions.innerHTML = `<button data-uid="${c.uid}" class="secondary">Profile</button><button data-uid="${c.uid}" data-type="video">Video</button><button data-uid="${c.uid}" data-type="audio">Voice</button>`;
-                actions.querySelector('[class="secondary"]').onclick = () => showFriendProfile(c.uid);
-                actions.querySelector('[data-type="video"]').onclick = () => initiateCall(c.uid, 'video');
-                actions.querySelector('[data-type="audio"]').onclick = () => initiateCall(c.uid, 'audio');
-                el.appendChild(mainInfo); el.appendChild(actions); list.appendChild(el);
-            });
-        }
-        function renderFriendRequests(snapshot) {const list = document.getElementById('notifications-list'); const badge = document.getElementById('notification-badge'); list.innerHTML = '';if (!snapshot.exists()) { list.innerHTML = '<p>No notifications.</p>'; badge.classList.add('hidden'); return; }const reqs = snapshot.val(); const count = Object.keys(reqs).length;badge.textContent = count; badge.classList.remove('hidden');Object.entries(reqs).forEach(([k, v]) => list.appendChild(createRequestElement(k,v)));}
-        function createRequestElement(key, request) {const el=document.createElement("div");el.className="list-item";el.innerHTML=`<span class="list-item-emoji">${request.senderEmoji}</span><div class="list-item-info"><span class="list-item-name">${request.senderName}</span><span>wants to connect.</span></div><div class="list-item-actions"><button>Accept</button><button class="danger">Reject</button></div>`;el.querySelector("button:first-child").onclick=()=>handleRequest(key,request.senderUid,!0);el.querySelector("button:last-child").onclick=()=>handleRequest(key,request.senderUid,!1);return el}
-        function renderCallLogs(snapshot) {const list=document.getElementById('call-log-list');list.innerHTML='';if(!snapshot.exists()){list.innerHTML='<p>Call history is empty.</p>';return}const logs=[];snapshot.forEach(s=>logs.push(s.val()));logs.reverse().forEach(log=>{const el=document.createElement('div');el.className='list-item';el.innerHTML=`<span class="list-item-emoji">${log.type==='video'?'📹':'📞'}</span><div class="list-item-info"><span class="list-item-name">${log.contactName} (${log.direction})</span><span>${new Date(log.timestamp).toLocaleString()}</span></div>`;list.appendChild(el)})}
-        
-        async function handleRequest(key, senderUid, accepted) {const myUid = auth.currentUser.uid;if (!myUid) return;const reqRef = database.ref(`requests/${myUid}/${key}`);if (!accepted) { await reqRef.remove(); return; }const senderSnap = await database.ref(`users/${senderUid}`).once('value');const senderData = senderSnap.val();if (!senderData || !currentUserData) return;const updates = {};updates[`/contacts/${myUid}/${senderUid}`] = {name: senderData.name, emoji: senderData.emoji, uid: senderData.uid, bio: senderData.bio || ''};updates[`/contacts/${senderUid}/${myUid}`] = {name: currentUserData.name, emoji: currentUserData.emoji, uid: currentUserData.uid, bio: currentUserData.bio || ''};updates[`/requests/${myUid}/${key}`] = null;await database.ref().update(updates);}
-        function showChatView(contact) {
-            if (blockedUsers[contact.uid]) { alert("This user is blocked."); return; }
-            currentOpenChatContactUid = contact.uid;
-            database.ref(`unread_markers/${currentUserData.uid}/${contact.uid}`).remove();
-            ui.main.classList.add('hidden');ui.chat.classList.remove('hidden');
-            document.getElementById('chat-header-name').textContent=contact.name; document.getElementById('chat-header-emoji').textContent=contact.emoji;
-            const blockBtn = document.getElementById('chat-block-button'); blockBtn.onclick = () => blockUser(contact);
-            const oldListener=activeListeners.find(l=>l.ref.toString().includes('/messages/'));
-            if(oldListener){oldListener.ref.off(oldListener.eventType,oldListener.callback);activeListeners=activeListeners.filter(l=>l!==oldListener)}
-            const chatID=generateChatID(currentUserData.uid,contact.uid);
-            document.getElementById('messages-container').innerHTML='';
-            const msgInput=document.getElementById('message-input'),sendBtn=document.getElementById('send-message-button');
-            sendBtn.onclick=()=>sendMessage(chatID,msgInput,contact.uid);
-            msgInput.onkeyup=e=>{if(e.key==='Enter')sendMessage(chatID,msgInput,contact.uid)};
-            const chatRef=database.ref(`messages/${chatID}`).orderByChild('timestamp').limitToLast(50);
-            const messageCallback=snapshot=>displayMessage(snapshot.val());
-            chatRef.on('child_added',messageCallback);activeListeners.push({ref:chatRef,eventType:'child_added',callback:messageCallback})
-        }
-        function sendMessage(chatID, inputEl, recipientUid) {
-            const text = inputEl.value.trim(); if (text === "") return;
-            const msgData = { text: text, senderId: currentUserData.uid, timestamp: firebase.database.ServerValue.TIMESTAMP };
-            database.ref(`messages/${chatID}`).push(msgData);
-            database.ref(`unread_markers/${recipientUid}/${currentUserData.uid}`).set(true);
-            inputEl.value = "";
-        }
-        function toggleTheme(){let e=document.body.classList.contains("light-theme")?"dark":"light";localStorage.setItem("masklink-theme",e);applyTheme(e)}function applyTheme(e){document.body.classList.toggle("light-theme",e==="light")}
-        
-        function openProfileViewModal() {
-            if (!currentUserData) return;
-            document.getElementById('profile-edit-name').value = currentUserData.name;
-            document.getElementById('profile-edit-emoji').value = currentUserData.emoji;
-            document.getElementById('profile-edit-bio').value = currentUserData.bio || '';
-            document.getElementById('profile-mask-id').textContent = currentUserData.maskId;
-            document.getElementById('profile-view-modal').classList.remove('hidden');
-            document.getElementById('menu-modal').classList.add('hidden');
-        }
-        
-        async function saveProfileChanges() {
-            const e = document.getElementById("profile-edit-name").value.trim();
-            const t = document.getElementById("profile-edit-emoji").value.trim();
-            const bio = document.getElementById("profile-edit-bio").value.trim();
-            const a = document.getElementById("profile-update-error");
-
-            if (!e || !t) return a.textContent = "Name and Emoji cannot be empty.", void a.classList.remove("hidden");
+                const n = `mask-${Math.random().toString(36).substr(2, 4)}`;
+                const a = { name: t, emoji: d, uid: e.uid, maskId: n, email: e.email, bio: bio };
+                const o = {};
+                o[`/users/${e.uid}`] = a;
+                o[`/maskIds/${n}`] = e.uid;
+                
+                database.ref().update(o).then(() => loadUserDataAndStartApp(e)).catch(e => { l.textContent = e.message, l.classList.remove("hidden") });
+            }
             
-            database.ref("users/" + currentUserData.uid).update({ name: e, emoji: t, bio: bio })
-                .then(() => document.getElementById('profile-view-modal').classList.add("hidden"))
-                .catch(e => { a.textContent = e.message, a.classList.remove("hidden") });
-        }
-        
-        function showFriendProfile(friendUid) {
-            database.ref(`users/${friendUid}`).once('value', snapshot => {
-                if (snapshot.exists()) {
-                    const friendData = snapshot.val();
-                    document.getElementById('friend-profile-emoji').textContent = friendData.emoji;
-                    document.getElementById('friend-profile-name').textContent = friendData.name;
-                    const bioElement = document.getElementById('friend-profile-bio');
-                    if (friendData.bio) {
-                        bioElement.textContent = friendData.bio;
+            function startAppListeners(uid) {
+                const addListener=(r,e,t)=>{r.on(e,t);activeListeners.push({ref:r,eventType:e,callback:t})};
+                
+                const unreadMarkersRef = database.ref(`unread_markers/${uid}`);
+                
+                unreadMarkersRef.once('value', snapshot => {
+                    unreadMessages = snapshot.val() || {};
+                    renderFriendList();
+                });
+
+                addListener(unreadMarkersRef, 'child_added', handleNewUnreadMessage);
+                addListener(unreadMarkersRef, 'child_removed', handleReadMessage);
+
+                addListener(database.ref(`users/${uid}`),'value',s=>{currentUserData=s.val()});
+                addListener(database.ref(`contacts/${uid}`),'value', handleContactsUpdate);
+                addListener(database.ref(`requests/${uid}`),'value',renderFriendRequests);
+                addListener(database.ref(`callLogs/${uid}`),'value',renderCallLogs);
+                addListener(database.ref(`calls/${uid}`),'value',handleIncomingCallSignal);
+                addListener(database.ref(`blocked/${uid}`), 'value', handleBlockedUsersUpdate);
+                addListener(database.ref('/status'), 'value', handleOnlineStatusUpdate);
+                setupPresenceSystem(uid);
+            }
+
+            async function handleNewUnreadMessage(snapshot) {
+                const senderUid = snapshot.key;
+                unreadMessages[senderUid] = true;
+                renderFriendList();
+
+                if ((currentOpenChatContactUid === senderUid && !document.hidden)) return;
+
+                const contactInfo = userContacts[senderUid];
+                if (contactInfo) {
+                    const chatID = generateChatID(currentUserData.uid, senderUid);
+                    const lastMessageSnapshot = await database.ref(`messages/${chatID}`).orderByChild('timestamp').limitToLast(1).once('value');
+                    if(lastMessageSnapshot.exists()) {
+                        const messageData = Object.values(lastMessageSnapshot.val())[0];
+                        showNotification(`${contactInfo.emoji} ${contactInfo.name}`, messageData.text);
+                    }
+                }
+            }
+
+            function handleReadMessage(snapshot) {
+                delete unreadMessages[snapshot.key];
+                renderFriendList();
+            }
+
+            function handleContactsUpdate(snapshot) { userContacts = snapshot.val() || {}; renderFriendList(); }
+            function handleBlockedUsersUpdate(snapshot) { blockedUsers = snapshot.val() || {}; renderFriendList(); }
+            function handleOnlineStatusUpdate(snapshot) { onlineStatus = snapshot.val() || {}; renderFriendList(); }
+            
+            function renderFriendList() {
+                if (!currentUserData) return;
+                const list = document.getElementById('contacts-list'); list.innerHTML = '';
+                if (Object.keys(userContacts).length === 0) { list.innerHTML = '<p>Your friends list is empty.</p>'; return; }
+
+                Object.values(userContacts).forEach(c => {
+                    if (blockedUsers[c.uid]) return;
+                    
+                    const status = onlineStatus[c.uid]?.state === 'online' ? 'online' : 'offline';
+                    const statusIndicator = `<span class="status-indicator ${status}"></span>`;
+                    const unreadIndicator = unreadMessages[c.uid] ? '<span class="unread-dot"></span>' : '';
+
+                    const el = document.createElement('div'); el.className = 'list-item';
+                    const mainInfo = document.createElement('div'); mainInfo.className = 'list-item-main-info';
+                    mainInfo.innerHTML = `<span class="list-item-emoji">${statusIndicator}${c.emoji}</span><div class="list-item-info"><span class="list-item-name">${c.name}</span>${unreadIndicator}</div>`;
+                    mainInfo.onclick = () => showChatView(c);
+                    const actions = document.createElement('div'); actions.className = 'list-item-actions';
+                    actions.innerHTML = `<button data-uid="${c.uid}" class="secondary">Profile</button><button data-uid="${c.uid}" data-type="video">Video</button><button data-uid="${c.uid}" data-type="audio">Voice</button>`;
+                    actions.querySelector('[class="secondary"]').onclick = () => showFriendProfile(c.uid);
+                    actions.querySelector('[data-type="video"]').onclick = () => initiateCall(c.uid, 'video');
+                    actions.querySelector('[data-type="audio"]').onclick = () => initiateCall(c.uid, 'audio');
+                    el.appendChild(mainInfo); el.appendChild(actions); list.appendChild(el);
+                });
+            }
+            function renderFriendRequests(snapshot) {const list = document.getElementById('notifications-list'); const badge = document.getElementById('notification-badge'); list.innerHTML = '';if (!snapshot.exists()) { list.innerHTML = '<p>No notifications.</p>'; badge.classList.add('hidden'); return; }const reqs = snapshot.val(); const count = Object.keys(reqs).length;badge.textContent = count; badge.classList.remove('hidden');Object.entries(reqs).forEach(([k, v]) => list.appendChild(createRequestElement(k,v)));}
+            function createRequestElement(key, request) {const el=document.createElement("div");el.className="list-item";el.innerHTML=`<span class="list-item-emoji">${request.senderEmoji}</span><div class="list-item-info"><span class="list-item-name">${request.senderName}</span><span>wants to connect.</span></div><div class="list-item-actions"><button>Accept</button><button class="danger">Reject</button></div>`;el.querySelector("button:first-child").onclick=()=>handleRequest(key,request.senderUid,!0);el.querySelector("button:last-child").onclick=()=>handleRequest(key,request.senderUid,!1);return el}
+            function renderCallLogs(snapshot) {const list=document.getElementById('call-log-list');list.innerHTML='';if(!snapshot.exists()){list.innerHTML='<p>Call history is empty.</p>';return}const logs=[];snapshot.forEach(s=>logs.push(s.val()));logs.reverse().forEach(log=>{const el=document.createElement('div');el.className='list-item';el.innerHTML=`<span class="list-item-emoji">${log.type==='video'?'📹':'📞'}</span><div class="list-item-info"><span class="list-item-name">${log.contactName} (${log.direction})</span><span>${new Date(log.timestamp).toLocaleString()}</span></div>`;list.appendChild(el)})}
+            
+            async function handleRequest(key, senderUid, accepted) {const myUid = auth.currentUser.uid;if (!myUid) return;const reqRef = database.ref(`requests/${myUid}/${key}`);if (!accepted) { await reqRef.remove(); return; }const senderSnap = await database.ref(`users/${senderUid}`).once('value');const senderData = senderSnap.val();if (!senderData || !currentUserData) return;const updates = {};updates[`/contacts/${myUid}/${senderUid}`] = {name: senderData.name, emoji: senderData.emoji, uid: senderData.uid, bio: senderData.bio || ''};updates[`/contacts/${senderUid}/${myUid}`] = {name: currentUserData.name, emoji: currentUserData.emoji, uid: currentUserData.uid, bio: currentUserData.bio || ''};updates[`/requests/${myUid}/${key}`] = null;await database.ref().update(updates);}
+            function showChatView(contact) {
+                if (blockedUsers[contact.uid]) { alert("This user is blocked."); return; }
+                currentOpenChatContactUid = contact.uid;
+                database.ref(`unread_markers/${currentUserData.uid}/${contact.uid}`).remove();
+                ui.main.classList.add('hidden');ui.chat.classList.remove('hidden');
+                document.getElementById('chat-header-name').textContent=contact.name; document.getElementById('chat-header-emoji').textContent=contact.emoji;
+                const blockBtn = document.getElementById('chat-block-button'); blockBtn.onclick = () => blockUser(contact);
+                const oldListener=activeListeners.find(l=>l.ref.toString().includes('/messages/'));
+                if(oldListener){oldListener.ref.off(oldListener.eventType,oldListener.callback);activeListeners=activeListeners.filter(l=>l!==oldListener)}
+                const chatID=generateChatID(currentUserData.uid,contact.uid);
+                document.getElementById('messages-container').innerHTML='';
+                const msgInput=document.getElementById('message-input'),sendBtn=document.getElementById('send-message-button');
+                sendBtn.onclick=()=>sendMessage(chatID,msgInput,contact.uid);
+                msgInput.onkeyup=e=>{if(e.key==='Enter')sendMessage(chatID,msgInput,contact.uid)};
+                const chatRef=database.ref(`messages/${chatID}`).orderByChild('timestamp').limitToLast(50);
+                const messageCallback=snapshot=>displayMessage(snapshot.val());
+                chatRef.on('child_added',messageCallback);activeListeners.push({ref:chatRef,eventType:'child_added',callback:messageCallback})
+            }
+            function sendMessage(chatID, inputEl, recipientUid) {
+                const text = inputEl.value.trim(); if (text === "") return;
+                const msgData = { text: text, senderId: currentUserData.uid, timestamp: firebase.database.ServerValue.TIMESTAMP };
+                database.ref(`messages/${chatID}`).push(msgData);
+                database.ref(`unread_markers/${recipientUid}/${currentUserData.uid}`).set(true);
+                inputEl.value = "";
+            }
+            function toggleTheme(){let e=document.body.classList.contains("light-theme")?"dark":"light";localStorage.setItem("masklink-theme",e);applyTheme(e)}function applyTheme(e){document.body.classList.toggle("light-theme",e==="light")}
+            
+            function openProfileViewModal() {
+                if (!currentUserData) return;
+                document.getElementById('profile-edit-name').value = currentUserData.name;
+                document.getElementById('profile-edit-emoji').value = currentUserData.emoji;
+                document.getElementById('profile-edit-bio').value = currentUserData.bio || '';
+                document.getElementById('profile-mask-id').textContent = currentUserData.maskId;
+                document.getElementById('profile-view-modal').classList.remove('hidden');
+                document.getElementById('menu-modal').classList.add('hidden');
+            }
+            
+            async function saveProfileChanges() {
+                const e = document.getElementById("profile-edit-name").value.trim();
+                const t = document.getElementById("profile-edit-emoji").value.trim();
+                const bio = document.getElementById("profile-edit-bio").value.trim();
+                const a = document.getElementById("profile-update-error");
+
+                if (!e || !t) return a.textContent = "Name and Emoji cannot be empty.", void a.classList.remove("hidden");
+                
+                database.ref("users/" + currentUserData.uid).update({ name: e, emoji: t, bio: bio })
+                    .then(() => document.getElementById('profile-view-modal').classList.add("hidden"))
+                    .catch(e => { a.textContent = e.message, a.classList.remove("hidden") });
+            }
+            
+            function showFriendProfile(friendUid) {
+                database.ref(`users/${friendUid}`).once('value', snapshot => {
+                    if (snapshot.exists()) {
+                        const friendData = snapshot.val();
+                        document.getElementById('friend-profile-emoji').textContent = friendData.emoji;
+                        document.getElementById('friend-profile-name').textContent = friendData.name;
+                        const bioElement = document.getElementById('friend-profile-bio');
+                        if (friendData.bio && friendData.bio.trim() !== '') {
+                            bioElement.textContent = `"${friendData.bio}"`;
+                        } else {
+                            bioElement.textContent = 'No bio yet.';
+                        }
+                        document.getElementById('friend-profile-mask-id').textContent = friendData.maskId;
+                        document.getElementById('friend-profile-modal').classList.remove('hidden');
                     } else {
-                        bioElement.textContent = 'No bio yet.';
+                        alert("Could not load friend's details.");
                     }
-                    document.getElementById('friend-profile-mask-id').textContent = friendData.maskId;
-                    document.getElementById('friend-profile-modal').classList.remove('hidden');
+                });
+            }
+            
+            function requestNotificationPermission() {
+                if ('Notification' in window) {
+                    if (Notification.permission !== 'denied') {
+                        Notification.requestPermission().then(permission => {
+                            console.log('Notification permission status:', permission);
+                        });
+                    }
                 } else {
-                    alert("Could not load friend's details.");
+                    console.log("This browser does not support desktop notifications.");
                 }
-            });
-        }
-        
-        function requestNotificationPermission() {
-            if ('Notification' in window) {
-                if (Notification.permission !== 'denied') {
-                    Notification.requestPermission().then(permission => {
-                        console.log('Notification permission status:', permission);
+            }
+
+            function showNotification(title, body) {
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    const notification = new Notification(title, { body: body, tag: 'masklink-message' });
+                }
+            }
+
+            function setupPresenceSystem(uid) {
+                const userStatusDatabaseRef = database.ref('/status/' + uid);
+                const isOfflineForDatabase = { state: 'offline', last_changed: firebase.database.ServerValue.TIMESTAMP };
+                const isOnlineForDatabase = { state: 'online', last_changed: firebase.database.ServerValue.TIMESTAMP };
+                database.ref('.info/connected').on('value', (snapshot) => {
+                    if (snapshot.val() === false) { return; }
+                    userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(() => {
+                        userStatusDatabaseRef.set(isOnlineForDatabase);
                     });
-                }
-            } else {
-                console.log("This browser does not support desktop notifications.");
-            }
-        }
-
-        function showNotification(title, body) {
-            if ('Notification' in window && Notification.permission === 'granted') {
-                const notification = new Notification(title, { body: body, tag: 'masklink-message' });
-            }
-        }
-
-        function setupPresenceSystem(uid) {
-            const userStatusDatabaseRef = database.ref('/status/' + uid);
-            const isOfflineForDatabase = { state: 'offline', last_changed: firebase.database.ServerValue.TIMESTAMP };
-            const isOnlineForDatabase = { state: 'online', last_changed: firebase.database.ServerValue.TIMESTAMP };
-            database.ref('.info/connected').on('value', (snapshot) => {
-                if (snapshot.val() === false) { return; }
-                userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(() => {
-                    userStatusDatabaseRef.set(isOnlineForDatabase);
                 });
-            });
-        }
-        function blockUser(contactToBlock) {if (confirm(`Are you sure you want to block ${contactToBlock.name}?`)) {database.ref(`blocked/${currentUserData.uid}/${contactToBlock.uid}`).set(true).then(() => { alert(`${contactToBlock.name} has been blocked.`); ui.chat.classList.add('hidden'); ui.main.classList.remove('hidden'); });}}
-        function unblockUser(uidToUnblock) {database.ref(`blocked/${currentUserData.uid}/${uidToUnblock}`).remove().then(() => {alert("User unblocked."); document.getElementById('blocked-users-modal').classList.add('hidden');});}
-        function openBlockedUsersModal() {const listEl = document.getElementById('blocked-users-list'); listEl.innerHTML = '';if (Object.keys(blockedUsers).length === 0) { listEl.innerHTML = '<p>No blocked users.</p>'; } else {Object.keys(blockedUsers).forEach(uid => {database.ref(`users/${uid}`).once('value', snapshot => {const userData = snapshot.val();const item = document.createElement('div'); item.className = 'list-item';item.innerHTML = `<div class="list-item-main-info"><span class="list-item-emoji">${userData.emoji}</span><div class="list-item-info"><span class="list-item-name">${userData.name}</span></div></div><button class="danger">Unblock</button>`;item.querySelector('button').onclick = () => unblockUser(uid);listEl.appendChild(item);});});}document.getElementById('blocked-users-modal').classList.remove('hidden');document.getElementById('menu-modal').classList.add('hidden');}
-        async function initiateCall(calleeUid, type) {if (blockedUsers[calleeUid]) { alert("Cannot call a blocked user."); return; }try {localStream = await navigator.mediaDevices.getUserMedia({ video: type === 'video', audio: true });document.getElementById('local-video').srcObject = localStream;setupPeerConnection(calleeUid);const offer = await peerConnection.createOffer();await peerConnection.setLocalDescription(offer);const callData = { offer, from: currentUserData.uid, name: currentUserData.name, emoji: currentUserData.emoji, type };await database.ref(`calls/${calleeUid}`).set(callData);currentCallContactUid = calleeUid;const contactData = await database.ref(`users/${calleeUid}`).once('value');showCallUI(type, contactData.val(), 'Calling...');} catch (err) { console.error("Call Init Error:", err); }}
-        function handleIncomingCallSignal(snapshot) {const callData = snapshot.val();if (!callData) return;if (callData.offer && !peerConnection) {if (blockedUsers[callData.from]) { database.ref(`calls/${currentUserData.uid}`).remove(); return; }incomingCallData = callData;currentCallContactUid = callData.from;document.getElementById('incoming-call-info').textContent = `${callData.emoji} ${callData.name} is calling...`;ui.incomingCall.classList.remove('hidden');ui.ringtone.play();} else if (callData.answer && peerConnection?.signalingState === 'have-local-offer') {peerConnection.setRemoteDescription(new RTCSessionDescription(callData.answer));} else if (callData.iceCandidate && peerConnection) {peerConnection.addIceCandidate(new RTCIceCandidate(callData.iceCandidate));} else if (callData.rejection || callData.hangup) {alert("Call " + (callData.rejection ? "Rejected" : "Ended"));endCall(false);}}
-        async function handleAcceptCall() {try {ui.ringtone.pause();ui.incomingCall.classList.add('hidden');localStream = await navigator.mediaDevices.getUserMedia({ video: incomingCallData.type === 'video', audio: true });document.getElementById('local-video').srcObject = localStream;setupPeerConnection(incomingCallData.from);await peerConnection.setRemoteDescription(new RTCSessionDescription(incomingCallData.offer));const answer = await peerConnection.createAnswer();await peerConnection.setLocalDescription(answer);await database.ref(`calls/${incomingCallData.from}`).update({ answer });showCallUI(incomingCallData.type, incomingCallData, 'Connected');incomingCallData = null;} catch (err) { console.error("Accept Call Error:", err); }}
-        function handleRejectCall() {ui.ringtone.pause();ui.incomingCall.classList.add('hidden');if(incomingCallData?.from) {database.ref(`calls/${incomingCallData.from}`).update({ rejection: true });}database.ref(`calls/${currentUserData.uid}`).remove();incomingCallData = null;}
-        function setupPeerConnection(contactUid) {peerConnection = new RTCPeerConnection(stunServers);peerConnection.onicecandidate = e => {if (e.candidate) {database.ref(`calls/${contactUid}`).update({ iceCandidate: e.candidate.toJSON() });}};peerConnection.ontrack = e => {document.getElementById('remote-video').srcObject = e.streams[0];};localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));peerConnection.onconnectionstatechange = () => {const state = peerConnection.connectionState;if (state === 'disconnected' || state === 'closed' || state === 'failed') {endCall(false);} else if (state === 'connected') {document.querySelector('.call-info-status').textContent = 'Connected';database.ref(`calls/${currentUserData.uid}`).remove();}};}
-        function showCallUI(type, contactInfo, status) {ui.call.classList.remove('hidden');ui.main.classList.add('hidden');ui.chat.classList.add('hidden');document.querySelector('.call-info-emoji').textContent = contactInfo.emoji;document.querySelector('.call-info-name').textContent = contactInfo.name;document.querySelector('.call-info-status').textContent = status;const hideVideo = type === 'audio';document.getElementById('remote-video').classList.toggle('hidden', hideVideo);document.getElementById('local-video').classList.toggle('hidden', hideVideo);}
-        function endCall(sendHangup = true) {if (sendHangup && currentCallContactUid) {database.ref(`calls/${currentCallContactUid}`).update({ hangup: true });}if (localStream) {localStream.getTracks().forEach(track => track.stop());localStream = null;}if (peerConnection) {peerConnection.close();peerConnection = null;}ui.ringtone.pause();ui.call.classList.add('hidden');ui.incomingCall.classList.add('hidden');ui.main.classList.remove('hidden');database.ref(`calls/${currentUserData.uid}`).remove();incomingCallData = null;currentCallContactUid = null;}
-        async function sendFriendRequest(){const i=document.getElementById("friend-mask-id-input"),id=i.value.trim(),e=document.getElementById("add-friend-error"),s=document.getElementById("add-friend-success");e.classList.add("hidden");s.classList.add("hidden");if(!id){e.textContent="Mask ID required";e.classList.remove("hidden");return}if(id===currentUserData.maskId){e.textContent="You can't add yourself.";e.classList.remove("hidden");return}try{const r=await database.ref("maskIds").child(id).once("value");if(!r.exists()){e.textContent="User not found.";e.classList.remove("hidden");return}const u=r.val(),c=await database.ref(`contacts/${currentUserData.uid}/${u}`).once("value");if(c.exists()){e.textContent="Already friends.";e.classList.remove("hidden");return}const d={senderUid:currentUserData.uid,senderName:currentUserData.name,senderEmoji:currentUserData.emoji};await database.ref(`requests/${u}`).push(d);s.classList.remove("hidden");setTimeout(()=>document.getElementById("add-friend-modal").classList.add("hidden"),2e3)}catch(t){e.textContent=t.message;e.classList.remove("hidden")}}
-        function generateChatID(a,b){return a<b?`${a}_${b}`:`${b}_${a}`}
-        function displayMessage(msg){const el=document.createElement("div");el.className="message-bubble";el.textContent=msg.text;el.classList.add(msg.senderId===currentUserData.uid?"sent":"received");const cont=document.getElementById("messages-container");cont.appendChild(el);cont.scrollTop=cont.scrollHeight}
-        
-        async function loadDiscoverPage() {
-            const discoverList = document.getElementById('discover-list');
-            discoverList.innerHTML = '<p>Searching for online users...</p>';
-            try {
-                const onlineUsersSnapshot = await database.ref('/status').orderByChild('state').equalTo('online').once('value');
-                if (!onlineUsersSnapshot.exists()) {
-                    discoverList.innerHTML = '<p>No other users are online right now. Try again later!</p>';
-                    return;
-                }
-                const onlineUsers = onlineUsersSnapshot.val();
-                let discoverableUids = Object.keys(onlineUsers).filter(uid => 
-                    uid !== currentUserData.uid && !userContacts[uid]
-                );
-                if (discoverableUids.length === 0) {
-                    discoverList.innerHTML = '<p>Everyone online is already your friend!</p>';
-                    return;
-                }
-                discoverableUids.sort(() => 0.5 - Math.random());
-                const randomUidsToShow = discoverableUids.slice(0, 10);
-                const userPromises = randomUidsToShow.map(uid => database.ref(`/users/${uid}`).once('value'));
-                const userSnapshots = await Promise.all(userPromises);
-                discoverList.innerHTML = '';
-                userSnapshots.forEach(userSnap => {
-                    const userData = userSnap.val();
-                    if (userData) {
-                        const userElement = document.createElement('div');
-                        userElement.className = 'list-item';
-                        userElement.innerHTML = `
-                            <div class="list-item-main-info">
-                                <span class="list-item-emoji">${userData.emoji}</span>
-                                <div class="list-item-info">
-                                    <span class="list-item-name">${userData.name}</span>
-                                    <span>Mask ID: ${userData.maskId}</span>
-                                </div>
-                            </div>
-                            <div class="list-item-actions">
-                                <button class="send-request-btn" data-uid="${userData.uid}">Send Request</button>
-                            </div>
-                        `;
-                        discoverList.appendChild(userElement);
+            }
+            function blockUser(contactToBlock) {if (confirm(`Are you sure you want to block ${contactToBlock.name}?`)) {database.ref(`blocked/${currentUserData.uid}/${contactToBlock.uid}`).set(true).then(() => { alert(`${contactToBlock.name} has been blocked.`); ui.chat.classList.add('hidden'); ui.main.classList.remove('hidden'); });}}
+            function unblockUser(uidToUnblock) {database.ref(`blocked/${currentUserData.uid}/${uidToUnblock}`).remove().then(() => {alert("User unblocked."); document.getElementById('blocked-users-modal').classList.add('hidden');});}
+            function openBlockedUsersModal() {const listEl = document.getElementById('blocked-users-list'); listEl.innerHTML = '';if (Object.keys(blockedUsers).length === 0) { listEl.innerHTML = '<p>No blocked users.</p>'; } else {Object.keys(blockedUsers).forEach(uid => {database.ref(`users/${uid}`).once('value', snapshot => {const userData = snapshot.val();const item = document.createElement('div'); item.className = 'list-item';item.innerHTML = `<div class="list-item-main-info"><span class="list-item-emoji">${userData.emoji}</span><div class="list-item-info"><span class="list-item-name">${userData.name}</span></div></div><button class="danger">Unblock</button>`;item.querySelector('button').onclick = () => unblockUser(uid);listEl.appendChild(item);});});}document.getElementById('blocked-users-modal').classList.remove('hidden');document.getElementById('menu-modal').classList.add('hidden');}
+            async function initiateCall(calleeUid, type) {if (blockedUsers[calleeUid]) { alert("Cannot call a blocked user."); return; }try {localStream = await navigator.mediaDevices.getUserMedia({ video: type === 'video', audio: true });document.getElementById('local-video').srcObject = localStream;setupPeerConnection(calleeUid);const offer = await peerConnection.createOffer();await peerConnection.setLocalDescription(offer);const callData = { offer, from: currentUserData.uid, name: currentUserData.name, emoji: currentUserData.emoji, type };await database.ref(`calls/${calleeUid}`).set(callData);currentCallContactUid = calleeUid;const contactData = await database.ref(`users/${calleeUid}`).once('value');showCallUI(type, contactData.val(), 'Calling...');} catch (err) { console.error("Call Init Error:", err); }}
+            function handleIncomingCallSignal(snapshot) {const callData = snapshot.val();if (!callData) return;if (callData.offer && !peerConnection) {if (blockedUsers[callData.from]) { database.ref(`calls/${currentUserData.uid}`).remove(); return; }incomingCallData = callData;currentCallContactUid = callData.from;document.getElementById('incoming-call-info').textContent = `${callData.emoji} ${callData.name} is calling...`;ui.incomingCall.classList.remove('hidden');ui.ringtone.play();} else if (callData.answer && peerConnection?.signalingState === 'have-local-offer') {peerConnection.setRemoteDescription(new RTCSessionDescription(callData.answer));} else if (callData.iceCandidate && peerConnection) {peerConnection.addIceCandidate(new RTCIceCandidate(callData.iceCandidate));} else if (callData.rejection || callData.hangup) {alert("Call " + (callData.rejection ? "Rejected" : "Ended"));endCall(false);}}
+            async function handleAcceptCall() {try {ui.ringtone.pause();ui.incomingCall.classList.add('hidden');localStream = await navigator.mediaDevices.getUserMedia({ video: incomingCallData.type === 'video', audio: true });document.getElementById('local-video').srcObject = localStream;setupPeerConnection(incomingCallData.from);await peerConnection.setRemoteDescription(new RTCSessionDescription(incomingCallData.offer));const answer = await peerConnection.createAnswer();await peerConnection.setLocalDescription(answer);await database.ref(`calls/${incomingCallData.from}`).update({ answer });showCallUI(incomingCallData.type, incomingCallData, 'Connected');incomingCallData = null;} catch (err) { console.error("Accept Call Error:", err); }}
+            function handleRejectCall() {ui.ringtone.pause();ui.incomingCall.classList.add('hidden');if(incomingCallData?.from) {database.ref(`calls/${incomingCallData.from}`).update({ rejection: true });}database.ref(`calls/${currentUserData.uid}`).remove();incomingCallData = null;}
+            function setupPeerConnection(contactUid) {peerConnection = new RTCPeerConnection(stunServers);peerConnection.onicecandidate = e => {if (e.candidate) {database.ref(`calls/${contactUid}`).update({ iceCandidate: e.candidate.toJSON() });}};peerConnection.ontrack = e => {document.getElementById('remote-video').srcObject = e.streams[0];};localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));peerConnection.onconnectionstatechange = () => {const state = peerConnection.connectionState;if (state === 'disconnected' || state === 'closed' || state === 'failed') {endCall(false);} else if (state === 'connected') {document.querySelector('.call-info-status').textContent = 'Connected';database.ref(`calls/${currentUserData.uid}`).remove();}};}
+            function showCallUI(type, contactInfo, status) {ui.call.classList.remove('hidden');ui.main.classList.add('hidden');ui.chat.classList.add('hidden');document.querySelector('.call-info-emoji').textContent = contactInfo.emoji;document.querySelector('.call-info-name').textContent = contactInfo.name;document.querySelector('.call-info-status').textContent = status;const hideVideo = type === 'audio';document.getElementById('remote-video').classList.toggle('hidden', hideVideo);document.getElementById('local-video').classList.toggle('hidden', hideVideo);}
+            function endCall(sendHangup = true) {if (sendHangup && currentCallContactUid) {database.ref(`calls/${currentCallContactUid}`).update({ hangup: true });}if (localStream) {localStream.getTracks().forEach(track => track.stop());localStream = null;}if (peerConnection) {peerConnection.close();peerConnection = null;}ui.ringtone.pause();ui.call.classList.add('hidden');ui.incomingCall.classList.add('hidden');ui.main.classList.remove('hidden');database.ref(`calls/${currentUserData.uid}`).remove();incomingCallData = null;currentCallContactUid = null;}
+            async function sendFriendRequest(){const i=document.getElementById("friend-mask-id-input"),id=i.value.trim(),e=document.getElementById("add-friend-error"),s=document.getElementById("add-friend-success");e.classList.add("hidden");s.classList.add("hidden");if(!id){e.textContent="Mask ID required";e.classList.remove("hidden");return}if(id===currentUserData.maskId){e.textContent="You can't add yourself.";e.classList.remove("hidden");return}try{const r=await database.ref("maskIds").child(id).once("value");if(!r.exists()){e.textContent="User not found.";e.classList.remove("hidden");return}const u=r.val(),c=await database.ref(`contacts/${currentUserData.uid}/${u}`).once("value");if(c.exists()){e.textContent="Already friends.";e.classList.remove("hidden");return}const d={senderUid:currentUserData.uid,senderName:currentUserData.name,senderEmoji:currentUserData.emoji};await database.ref(`requests/${u}`).push(d);s.classList.remove("hidden");setTimeout(()=>document.getElementById("add-friend-modal").classList.add("hidden"),2e3)}catch(t){e.textContent=t.message;e.classList.remove("hidden")}}
+            function generateChatID(a,b){return a<b?`${a}_${b}`:`${b}_${a}`}
+            function displayMessage(msg){const el=document.createElement("div");el.className="message-bubble";el.textContent=msg.text;el.classList.add(msg.senderId===currentUserData.uid?"sent":"received");const cont=document.getElementById("messages-container");cont.appendChild(el);cont.scrollTop=cont.scrollHeight}
+            
+            async function loadDiscoverPage() {
+                const discoverList = document.getElementById('discover-list');
+                discoverList.innerHTML = '<p>Searching for online users...</p>';
+                try {
+                    const onlineUsersSnapshot = await database.ref('/status').orderByChild('state').equalTo('online').once('value');
+                    if (!onlineUsersSnapshot.exists()) {
+                        discoverList.innerHTML = '<p>No other users are online right now. Try again later!</p>';
+                        return;
                     }
-                });
-            } catch (error) {
-                console.error("Error loading discover page:", error);
-                discoverList.innerHTML = '<p>Could not load users. Please check your connection and try again.</p>';
-            }
-        }
-
-        async function sendFriendRequestByUid(recipientUid) {
-            if (!recipientUid || recipientUid === currentUserData.uid) return;
-            try {
-                const contactSnap = await database.ref(`contacts/${currentUserData.uid}/${recipientUid}`).once('value');
-                if (contactSnap.exists()) {
-                    alert("You are already friends with this user.");
-                    return;
+                    const onlineUsers = onlineUsersSnapshot.val();
+                    let discoverableUids = Object.keys(onlineUsers).filter(uid => 
+                        uid !== currentUserData.uid && !userContacts[uid]
+                    );
+                    if (discoverableUids.length === 0) {
+                        discoverList.innerHTML = '<p>Everyone online is already your friend!</p>';
+                        return;
+                    }
+                    discoverableUids.sort(() => 0.5 - Math.random());
+                    const randomUidsToShow = discoverableUids.slice(0, 10);
+                    const userPromises = randomUidsToShow.map(uid => database.ref(`/users/${uid}`).once('value'));
+                    const userSnapshots = await Promise.all(userPromises);
+                    discoverList.innerHTML = '';
+                    userSnapshots.forEach(userSnap => {
+                        const userData = userSnap.val();
+                        if (userData) {
+                            const userElement = document.createElement('div');
+                            userElement.className = 'list-item';
+                            userElement.innerHTML = `
+                                <div class="list-item-main-info">
+                                    <span class="list-item-emoji">${userData.emoji}</span>
+                                    <div class="list-item-info">
+                                        <span class="list-item-name">${userData.name}</span>
+                                        <span>Mask ID: ${userData.maskId}</span>
+                                    </div>
+                                </div>
+                                <div class="list-item-actions">
+                                    <button class="send-request-btn" data-uid="${userData.uid}">Send Request</button>
+                                </div>
+                            `;
+                            discoverList.appendChild(userElement);
+                        }
+                    });
+                } catch (error) {
+                    console.error("Error loading discover page:", error);
+                    discoverList.innerHTML = '<p>Could not load users. Please check your connection and try again.</p>';
                 }
-                const requestData = {
-                    senderUid: currentUserData.uid,
-                    senderName: currentUserData.name,
-                    senderEmoji: currentUserData.emoji
-                };
-                await database.ref(`requests/${recipientUid}`).push(requestData);
-                alert("Friend request sent successfully!");
-            } catch (error) {
-                console.error("Error sending friend request:", error);
-                alert("Failed to send friend request. Please try again.");
             }
-        }
-        
-        attachAllEventListeners();
-    });
+
+            async function sendFriendRequestByUid(recipientUid) {
+                if (!recipientUid || recipientUid === currentUserData.uid) return;
+                try {
+                    const contactSnap = await database.ref(`contacts/${currentUserData.uid}/${recipientUid}`).once('value');
+                    if (contactSnap.exists()) {
+                        alert("You are already friends with this user.");
+                        return;
+                    }
+                    const requestData = {
+                        senderUid: currentUserData.uid,
+                        senderName: currentUserData.name,
+                        senderEmoji: currentUserData.emoji
+                    };
+                    await database.ref(`requests/${recipientUid}`).push(requestData);
+                    alert("Friend request sent successfully!");
+                } catch (error) {
+                    console.error("Error sending friend request:", error);
+                    alert("Failed to send friend request. Please try again.");
+                }
+            }
+            
+            attachAllEventListeners();
+        });
     </script>
 </body>
 </html>
-
