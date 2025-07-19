@@ -120,5 +120,5 @@ We collect no personal data. Privacy is your right, use it responsibly.
 
 🌐 Stay Connected
 
-📬 For queries, support, or collaboration: your-email@example.com
+📬 For queries, support, or collaboration: farukahmed20apr2003@gmail.com 
 📢 Official Telegram Channel: https://t.me/MuskLinkBD
