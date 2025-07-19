@@ -122,21 +122,15 @@
         function startAppListeners(uid) {
             const addListener=(r,e,t)=>{r.on(e,t);activeListeners.push({ref:r,eventType:e,callback:t})};
             
-            // --- NEW AND IMPROVED NOTIFICATION LOGIC ---
             const unreadMarkersRef = database.ref(`unread_markers/${uid}`);
             
-            // 1. Get initial unread markers on load
             unreadMarkersRef.once('value', snapshot => {
                 unreadMessages = snapshot.val() || {};
                 renderFriendList();
             });
 
-            // 2. Listen for new unread markers (new messages)
             addListener(unreadMarkersRef, 'child_added', handleNewUnreadMessage);
-
-            // 3. Listen for markers being removed (messages read)
             addListener(unreadMarkersRef, 'child_removed', handleReadMessage);
-            // --- END OF NEW LOGIC ---
 
             addListener(database.ref(`users/${uid}`),'value',s=>{currentUserData=s.val()});
             addListener(database.ref(`contacts/${uid}`),'value', handleContactsUpdate);
@@ -148,16 +142,13 @@
             setupPresenceSystem(uid);
         }
 
-        // --- NEW HANDLER FUNCTIONS FOR NOTIFICATIONS ---
         async function handleNewUnreadMessage(snapshot) {
             const senderUid = snapshot.key;
             console.log("New unread message from:", senderUid);
             
-            // Update UI
             unreadMessages[senderUid] = true;
             renderFriendList();
 
-            // Check if we should send a notification
             if ((currentOpenChatContactUid === senderUid && !document.hidden)) {
                 console.log("Not notifying: chat is open and active.");
                 return;
@@ -165,7 +156,6 @@
 
             const contactInfo = userContacts[senderUid];
             if (contactInfo) {
-                // Fetch the last message to show in the notification body
                 const chatID = generateChatID(currentUserData.uid, senderUid);
                 const lastMessageSnapshot = await database.ref(`messages/${chatID}`).orderByChild('timestamp').limitToLast(1).once('value');
                 if(lastMessageSnapshot.exists()) {
@@ -178,11 +168,9 @@
         function handleReadMessage(snapshot) {
             const senderUid = snapshot.key;
             console.log("Messages from", senderUid, "have been read.");
-            // Update UI
             delete unreadMessages[senderUid];
             renderFriendList();
         }
-        // --- END OF NEW HANDLER FUNCTIONS ---
 
         function handleContactsUpdate(snapshot) { userContacts = snapshot.val() || {}; renderFriendList(); }
         function handleBlockedUsersUpdate(snapshot) { blockedUsers = snapshot.val() || {}; renderFriendList(); }
@@ -247,15 +235,21 @@
         async function saveProfileChanges(){const e=document.getElementById("profile-edit-name").value.trim(),t=document.getElementById("profile-edit-emoji").value.trim(),a=document.getElementById("profile-update-error");if(!e||!t)return a.textContent="Name and Emoji cannot be empty.",void a.classList.remove("hidden");database.ref("users/"+currentUserData.uid).update({name:e,emoji:t}).then(()=>document.getElementById('profile-view-modal').classList.add("hidden")).catch(e=>{a.textContent=e.message,a.classList.remove("hidden")})}
         function showFriendProfile(friendUid) {database.ref(`users/${friendUid}`).once('value', snapshot => {if (snapshot.exists()) {const friendData = snapshot.val();document.getElementById('friend-profile-emoji').textContent = friendData.emoji;document.getElementById('friend-profile-name').textContent = friendData.name;document.getElementById('friend-profile-mask-id').textContent = friendData.maskId;document.getElementById('friend-profile-modal').classList.remove('hidden');} else {alert("Could not load friend's details.");}});}
         
+        // --- IMPROVED NOTIFICATION FUNCTION ---
         function requestNotificationPermission() {
-            if (!('Notification' in window)) {
-                alert("This browser does not support desktop notification");
-                return;
-            }
-            if (Notification.permission !== 'denied') {
-                Notification.requestPermission().then(permission => {
-                    console.log('Notification permission status:', permission);
-                });
+            // Check if the browser supports notifications
+            if ('Notification' in window) {
+                // If supported, and if the user hasn't already denied permission,
+                // then ask for permission.
+                if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(permission => {
+                        console.log('Notification permission status:', permission);
+                    });
+                }
+            } else {
+                // If not supported, just log a message to the console.
+                // No alert will be shown to the user.
+                console.log("This browser does not support desktop notifications.");
             }
         }
 
