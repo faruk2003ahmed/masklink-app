@@ -35,16 +35,37 @@
     <div id="auth-container" class="container hidden"><h1 class="app-title"><a href="https://t.me/MuskLinkBD" target="_blank">MaskLink</a></h1><div id="login-form" class="form-container"><p id="login-error" class="error-message hidden"></p><input type="email" id="login-email" placeholder="Email"><input type="password" id="login-password" placeholder="Password"><button id="login-button">Login</button><p class="form-switch">Don't have an account? <span id="show-signup">Sign up</span></p></div><div id="signup-form" class="form-container hidden"><p id="signup-error" class="error-message hidden"></p><input type="email" id="signup-email" placeholder="Email"><input type="password" id="signup-password" placeholder="Password"><button id="signup-button">Sign Up</button><p class="form-switch">Already have an account? <span id="show-login">Log in</span></p></div></div>
     <div id="app-container" class="hidden">
         <!-- Modals -->
-        <div id="profile-setup-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Setup Your Profile</h2><p id="profile-error" class="error-message hidden"></p><input type="text" id="profile-name" placeholder="Enter name"><input type="text" id="profile-emoji" placeholder="Enter emoji (e.g., 👽)" maxlength="2"><button id="save-profile-button">Save Profile</button></div></div>
+        <div id="profile-setup-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h2>Setup Your Profile</h2>
+                <p id="profile-error" class="error-message hidden"></p>
+                <input type="text" id="profile-name" placeholder="Enter name">
+                <input type="text" id="profile-emoji" placeholder="Enter emoji (e.g., 👽)" maxlength="2">
+                <input type="text" id="profile-bio" placeholder="Write a short bio..." maxlength="100">
+                <button id="save-profile-button">Save Profile</button>
+            </div>
+        </div>
         <div id="add-friend-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Add Friend</h2><p id="add-friend-error" class="error-message hidden"></p><p id="add-friend-success" class="hidden" style="color: var(--accent-color);">Request Sent!</p><input type="text" id="friend-mask-id-input" placeholder="mask-xxxx"><button id="send-friend-request-button">Send</button><button id="close-add-friend-modal-button" class="secondary">Close</button></div></div>
         <div id="menu-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Menu</h2><button id="menu-profile-button">View Profile</button><button id="menu-blocked-button">Blocked Users</button><button id="menu-theme-button">Theme</button><button id="menu-logout-button">Logout</button><button id="menu-close-button" class="secondary">Close</button></div></div>
-        <div id="profile-view-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Your Profile</h2><p id="profile-update-error" class="error-message hidden"></p><input type="text" id="profile-edit-name"><input type="text" id="profile-edit-emoji" maxlength="2"><div class="profile-id-display">ID: <span id="profile-mask-id"></span></div><button id="profile-save-changes-button">Save</button><button id="profile-view-close-button" class="secondary">Close</button></div></div>
+        <div id="profile-view-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h2>Your Profile</h2>
+                <p id="profile-update-error" class="error-message hidden"></p>
+                <input type="text" id="profile-edit-name">
+                <input type="text" id="profile-edit-emoji" maxlength="2">
+                <input type="text" id="profile-edit-bio" placeholder="Your bio..." maxlength="100">
+                <div class="profile-id-display">ID: <span id="profile-mask-id"></span></div>
+                <button id="profile-save-changes-button">Save</button>
+                <button id="profile-view-close-button" class="secondary">Close</button>
+            </div>
+        </div>
         <div id="incoming-call-modal" class="modal-overlay hidden"><div class="modal-content"><h2 class="incoming-call-text">Incoming Call</h2><div id="incoming-call-info" style="margin-bottom: 20px; font-size: 20px;"></div><button id="accept-call-button">Accept</button><button id="reject-call-button" class="danger">Reject</button></div></div>
         <div id="blocked-users-modal" class="modal-overlay hidden"><div class="modal-content"><h2>Blocked Users</h2><div id="blocked-users-list"></div><button id="blocked-users-close-button" class="secondary">Close</button></div></div>
         <div id="friend-profile-modal" class="modal-overlay hidden">
             <div class="modal-content">
                 <div id="friend-profile-emoji" style="font-size: 48px; margin-bottom: 10px;"></div>
-                <h2 id="friend-profile-name" style="color: var(--text-color); margin-bottom: 20px;"></h2>
+                <h2 id="friend-profile-name" style="color: var(--text-color); margin-bottom: 10px;"></h2>
+                <p id="friend-profile-bio" style="color: var(--text-color); margin-bottom: 20px; font-style: italic;"></p>
                 <div class="profile-id-display">ID: <span id="friend-profile-mask-id"></span></div>
                 <button id="friend-profile-close-button" class="secondary">Close</button>
             </div>
@@ -60,18 +81,16 @@
             <div class="main-content">
                 <div id="pages-container">
                     <div id="home-page" class="page active"><h2>Friends</h2><div id="contacts-list"></div></div>
-                    <div id="notifications-page" class="page"><h2>Notifications</h2><div id="notifications-list"></div></div>
-                    <div id="calls-page" class="page"><h2>Call Logs</h2><div id="call-log-list"></div></div>
-                    <!-- New Discover Page -->
                     <div id="discover-page" class="page">
                         <h2>Discover People</h2>
                         <p>Here are some of the users currently online. Say hi!</p>
                         <button id="refresh-discover-button" class="secondary" style="margin-bottom: 20px;">Refresh List</button>
                         <div id="discover-list"></div>
                     </div>
+                    <div id="notifications-page" class="page"><h2>Notifications</h2><div id="notifications-list"></div></div>
+                    <div id="calls-page" class="page"><h2>Call Logs</h2><div id="call-log-list"></div></div>
                 </div>
             </div>
-            <!-- New Bottom Bar with Discover Button -->
             <div class="bottom-bar">
                 <button class="nav-button" data-page="home-page">Home</button>
                 <button class="nav-button" data-page="discover-page">Discover</button>
@@ -144,7 +163,6 @@
             applyTheme(localStorage.getItem('masklink-theme') || 'dark');
             requestNotificationPermission();
 
-            // --- New Listeners for Discover Page ---
             document.querySelector('.nav-button[data-page="discover-page"]').addEventListener('click', loadDiscoverPage);
             document.getElementById('refresh-discover-button').addEventListener('click', loadDiscoverPage);
 
@@ -159,7 +177,24 @@
         }
         
         const handleAuth=(i)=>()=>{const e=i?"signup":"login",t=document.getElementById(`${e}-email`).value.trim(),d=document.getElementById(`${e}-password`).value.trim(),l=document.getElementById(`${e}-error`);l.classList.add("hidden"),t&&d?(i?auth.createUserWithEmailAndPassword(t,d):auth.signInWithEmailAndPassword(t,d)).catch(e=>{l.textContent=e.message,l.classList.remove("hidden")}):(l.textContent="Email & Password required.",l.classList.remove("hidden"))};
-        function handleProfileSave() {const e=auth.currentUser;if(!e)return;const t=document.getElementById("profile-name").value.trim(),d=document.getElementById("profile-emoji").value.trim(),l=document.getElementById("profile-error");if(l.classList.add("hidden"),!t||!d)return l.textContent="Name & emoji required.",void l.classList.remove("hidden");const n=`mask-${Math.random().toString(36).substr(2,4)}`,a={name:t,emoji:d,uid:e.uid,maskId:n,email:e.email},o={};o[`/users/${e.uid}`]=a,o[`/maskIds/${n}`]=e.uid,database.ref().update(o).then(()=>loadUserDataAndStartApp(e)).catch(e=>{l.textContent=e.message,l.classList.remove("hidden")})}
+        
+        function handleProfileSave() {
+            const e = auth.currentUser; if (!e) return;
+            const t = document.getElementById("profile-name").value.trim();
+            const d = document.getElementById("profile-emoji").value.trim();
+            const bio = document.getElementById("profile-bio").value.trim();
+            const l = document.getElementById("profile-error");
+
+            if (l.classList.add("hidden"), !t || !d) return l.textContent = "Name & emoji required.", void l.classList.remove("hidden");
+            
+            const n = `mask-${Math.random().toString(36).substr(2, 4)}`;
+            const a = { name: t, emoji: d, uid: e.uid, maskId: n, email: e.email, bio: bio };
+            const o = {};
+            o[`/users/${e.uid}`] = a;
+            o[`/maskIds/${n}`] = e.uid;
+            
+            database.ref().update(o).then(() => loadUserDataAndStartApp(e)).catch(e => { l.textContent = e.message, l.classList.remove("hidden") });
+        }
         
         function startAppListeners(uid) {
             const addListener=(r,e,t)=>{r.on(e,t);activeListeners.push({ref:r,eventType:e,callback:t})};
@@ -239,7 +274,7 @@
         function createRequestElement(key, request) {const el=document.createElement("div");el.className="list-item";el.innerHTML=`<span class="list-item-emoji">${request.senderEmoji}</span><div class="list-item-info"><span class="list-item-name">${request.senderName}</span><span>wants to connect.</span></div><div class="list-item-actions"><button>Accept</button><button class="danger">Reject</button></div>`;el.querySelector("button:first-child").onclick=()=>handleRequest(key,request.senderUid,!0);el.querySelector("button:last-child").onclick=()=>handleRequest(key,request.senderUid,!1);return el}
         function renderCallLogs(snapshot) {const list=document.getElementById('call-log-list');list.innerHTML='';if(!snapshot.exists()){list.innerHTML='<p>Call history is empty.</p>';return}const logs=[];snapshot.forEach(s=>logs.push(s.val()));logs.reverse().forEach(log=>{const el=document.createElement('div');el.className='list-item';el.innerHTML=`<span class="list-item-emoji">${log.type==='video'?'📹':'📞'}</span><div class="list-item-info"><span class="list-item-name">${log.contactName} (${log.direction})</span><span>${new Date(log.timestamp).toLocaleString()}</span></div>`;list.appendChild(el)})}
         
-        async function handleRequest(key, senderUid, accepted) {const myUid = auth.currentUser.uid;if (!myUid) return;const reqRef = database.ref(`requests/${myUid}/${key}`);if (!accepted) { await reqRef.remove(); return; }const senderSnap = await database.ref(`users/${senderUid}`).once('value');const senderData = senderSnap.val();if (!senderData || !currentUserData) return;const updates = {};updates[`/contacts/${myUid}/${senderUid}`] = {name: senderData.name, emoji: senderData.emoji, uid: senderData.uid};updates[`/contacts/${senderUid}/${myUid}`] = {name: currentUserData.name, emoji: currentUserData.emoji, uid: currentUserData.uid};updates[`/requests/${myUid}/${key}`] = null;await database.ref().update(updates);}
+        async function handleRequest(key, senderUid, accepted) {const myUid = auth.currentUser.uid;if (!myUid) return;const reqRef = database.ref(`requests/${myUid}/${key}`);if (!accepted) { await reqRef.remove(); return; }const senderSnap = await database.ref(`users/${senderUid}`).once('value');const senderData = senderSnap.val();if (!senderData || !currentUserData) return;const updates = {};updates[`/contacts/${myUid}/${senderUid}`] = {name: senderData.name, emoji: senderData.emoji, uid: senderData.uid, bio: senderData.bio || ''};updates[`/contacts/${senderUid}/${myUid}`] = {name: currentUserData.name, emoji: currentUserData.emoji, uid: currentUserData.uid, bio: currentUserData.bio || ''};updates[`/requests/${myUid}/${key}`] = null;await database.ref().update(updates);}
         function showChatView(contact) {
             if (blockedUsers[contact.uid]) { alert("This user is blocked."); return; }
             currentOpenChatContactUid = contact.uid;
@@ -266,9 +301,49 @@
             inputEl.value = "";
         }
         function toggleTheme(){let e=document.body.classList.contains("light-theme")?"dark":"light";localStorage.setItem("masklink-theme",e);applyTheme(e)}function applyTheme(e){document.body.classList.toggle("light-theme",e==="light")}
-        function openProfileViewModal(){if(!currentUserData)return;document.getElementById('profile-edit-name').value=currentUserData.name;document.getElementById('profile-edit-emoji').value=currentUserData.emoji;document.getElementById('profile-mask-id').textContent=currentUserData.maskId;document.getElementById('profile-view-modal').classList.remove('hidden');document.getElementById('menu-modal').classList.add('hidden')}
-        async function saveProfileChanges(){const e=document.getElementById("profile-edit-name").value.trim(),t=document.getElementById("profile-edit-emoji").value.trim(),a=document.getElementById("profile-update-error");if(!e||!t)return a.textContent="Name and Emoji cannot be empty.",void a.classList.remove("hidden");database.ref("users/"+currentUserData.uid).update({name:e,emoji:t}).then(()=>document.getElementById('profile-view-modal').classList.add("hidden")).catch(e=>{a.textContent=e.message,a.classList.remove("hidden")})}
-        function showFriendProfile(friendUid) {database.ref(`users/${friendUid}`).once('value', snapshot => {if (snapshot.exists()) {const friendData = snapshot.val();document.getElementById('friend-profile-emoji').textContent = friendData.emoji;document.getElementById('friend-profile-name').textContent = friendData.name;document.getElementById('friend-profile-mask-id').textContent = friendData.maskId;document.getElementById('friend-profile-modal').classList.remove('hidden');} else {alert("Could not load friend's details.");}});}
+        
+        function openProfileViewModal() {
+            if (!currentUserData) return;
+            document.getElementById('profile-edit-name').value = currentUserData.name;
+            document.getElementById('profile-edit-emoji').value = currentUserData.emoji;
+            document.getElementById('profile-edit-bio').value = currentUserData.bio || '';
+            document.getElementById('profile-mask-id').textContent = currentUserData.maskId;
+            document.getElementById('profile-view-modal').classList.remove('hidden');
+            document.getElementById('menu-modal').classList.add('hidden');
+        }
+        
+        async function saveProfileChanges() {
+            const e = document.getElementById("profile-edit-name").value.trim();
+            const t = document.getElementById("profile-edit-emoji").value.trim();
+            const bio = document.getElementById("profile-edit-bio").value.trim();
+            const a = document.getElementById("profile-update-error");
+
+            if (!e || !t) return a.textContent = "Name and Emoji cannot be empty.", void a.classList.remove("hidden");
+            
+            database.ref("users/" + currentUserData.uid).update({ name: e, emoji: t, bio: bio })
+                .then(() => document.getElementById('profile-view-modal').classList.add("hidden"))
+                .catch(e => { a.textContent = e.message, a.classList.remove("hidden") });
+        }
+        
+        function showFriendProfile(friendUid) {
+            database.ref(`users/${friendUid}`).once('value', snapshot => {
+                if (snapshot.exists()) {
+                    const friendData = snapshot.val();
+                    document.getElementById('friend-profile-emoji').textContent = friendData.emoji;
+                    document.getElementById('friend-profile-name').textContent = friendData.name;
+                    const bioElement = document.getElementById('friend-profile-bio');
+                    if (friendData.bio) {
+                        bioElement.textContent = friendData.bio;
+                    } else {
+                        bioElement.textContent = 'No bio yet.';
+                    }
+                    document.getElementById('friend-profile-mask-id').textContent = friendData.maskId;
+                    document.getElementById('friend-profile-modal').classList.remove('hidden');
+                } else {
+                    alert("Could not load friend's details.");
+                }
+            });
+        }
         
         function requestNotificationPermission() {
             if ('Notification' in window) {
@@ -313,38 +388,28 @@
         function generateChatID(a,b){return a<b?`${a}_${b}`:`${b}_${a}`}
         function displayMessage(msg){const el=document.createElement("div");el.className="message-bubble";el.textContent=msg.text;el.classList.add(msg.senderId===currentUserData.uid?"sent":"received");const cont=document.getElementById("messages-container");cont.appendChild(el);cont.scrollTop=cont.scrollHeight}
         
-        // --- New Functions for Discover Feature ---
-
         async function loadDiscoverPage() {
             const discoverList = document.getElementById('discover-list');
             discoverList.innerHTML = '<p>Searching for online users...</p>';
-
             try {
                 const onlineUsersSnapshot = await database.ref('/status').orderByChild('state').equalTo('online').once('value');
-                
                 if (!onlineUsersSnapshot.exists()) {
                     discoverList.innerHTML = '<p>No other users are online right now. Try again later!</p>';
                     return;
                 }
-
                 const onlineUsers = onlineUsersSnapshot.val();
                 let discoverableUids = Object.keys(onlineUsers).filter(uid => 
                     uid !== currentUserData.uid && !userContacts[uid]
                 );
-
                 if (discoverableUids.length === 0) {
                     discoverList.innerHTML = '<p>Everyone online is already your friend!</p>';
                     return;
                 }
-
                 discoverableUids.sort(() => 0.5 - Math.random());
                 const randomUidsToShow = discoverableUids.slice(0, 10);
-
                 const userPromises = randomUidsToShow.map(uid => database.ref(`/users/${uid}`).once('value'));
                 const userSnapshots = await Promise.all(userPromises);
-                
                 discoverList.innerHTML = '';
-
                 userSnapshots.forEach(userSnap => {
                     const userData = userSnap.val();
                     if (userData) {
@@ -365,7 +430,6 @@
                         discoverList.appendChild(userElement);
                     }
                 });
-
             } catch (error) {
                 console.error("Error loading discover page:", error);
                 discoverList.innerHTML = '<p>Could not load users. Please check your connection and try again.</p>';
@@ -374,31 +438,27 @@
 
         async function sendFriendRequestByUid(recipientUid) {
             if (!recipientUid || recipientUid === currentUserData.uid) return;
-            
             try {
                 const contactSnap = await database.ref(`contacts/${currentUserData.uid}/${recipientUid}`).once('value');
                 if (contactSnap.exists()) {
                     alert("You are already friends with this user.");
                     return;
                 }
-
                 const requestData = {
                     senderUid: currentUserData.uid,
                     senderName: currentUserData.name,
                     senderEmoji: currentUserData.emoji
                 };
-                
                 await database.ref(`requests/${recipientUid}`).push(requestData);
                 alert("Friend request sent successfully!");
-
             } catch (error) {
                 console.error("Error sending friend request:", error);
                 alert("Failed to send friend request. Please try again.");
             }
         }
-
+        
         attachAllEventListeners();
     });
     </script>
 </body>
-</html>
+</html>```
